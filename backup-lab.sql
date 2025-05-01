@@ -61,7 +61,7 @@ CREATE TABLE `Departamento` (
 
 LOCK TABLES `Departamento` WRITE;
 /*!40000 ALTER TABLE `Departamento` DISABLE KEYS */;
-INSERT INTO `Departamento` VALUES (1,'Financeiro',15000),(2,'TI',60000),(3,'Gestão de Pessoas',150000),(4,'Pesquisa e Desenvolvimento',7500),(5,'Jurídico',1000);
+INSERT INTO `Departamento` VALUES (1,'Financeiro',13500),(2,'TI',54000),(3,'Gestão de Pessoas',135000),(4,'Pesquisa e Desenvolvimento',6750),(5,'Jurídico',900),(6,'Compras',90000);
 /*!40000 ALTER TABLE `Departamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ CREATE TABLE `Funcionario` (
 
 LOCK TABLES `Funcionario` WRITE;
 /*!40000 ALTER TABLE `Funcionario` DISABLE KEYS */;
-INSERT INTO `Funcionario` VALUES (123,'Julio','Silva',1),(152,'Arnaldo','Coelho',1),(222,'Carol','Ferreira',2),(326,'João','Silveira',2),(331,'George','de la Rocha',3),(332,'José','Oliveira',1),(546,'José','Pereira',4),(631,'David','Luz',3),(654,'Zacarias','Ferreira',4),(745,'Eric','Estrada',4),(845,'Elizabeth','Coelho',1),(846,'Joaquim','Goveia',1);
+INSERT INTO `Funcionario` VALUES (123,'Julio','Silva',1),(152,'Arnaldo','Coelho',1),(280,'Livia','Ferreira',1),(281,'Ana','Scharf',1),(283,'Kauan','Freitas',1),(331,'George','de la Rocha',3),(332,'José','Oliveira',1),(631,'David','Luz',3),(786,'Juliano','Souza',6),(845,'Elizabeth','Coelho',1),(846,'Joaquim','Goveia',1);
 /*!40000 ALTER TABLE `Funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -102,4 +102,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-29 14:01:05
+-- Dump completed on 2025-05-01 20:55:46
