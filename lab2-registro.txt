@@ -1,0 +1,694 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| lab                |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.002 sec)
+
+mysql> CREATE DATABASE lab2;
+Query OK, 1 row affected (0.019 sec)
+
+mysql> USE lab2;
+Database changed
+mysql> CREATE TABLE cor(
+    -> id_cor INT PRIMARY KEY AUTO_INCREMENT,
+    -> nome VARCHAR(100) NOT NULL,
+    -> fabricante VARCHAR(100) NOT NULL);
+Query OK, 0 rows affected (0.046 sec)
+
+mysql> DESC cor
+    -> ;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id_cor     | int          | NO   | PRI | NULL    | auto_increment |
+| nome       | varchar(100) | NO   |     | NULL    |                |
+| fabricante | varchar(100) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.007 sec)
+
+mysql> CREATE TABLE automovel(
+    -> id_automovel INT PRIMARY KEY AUTO_INCREMENT,
+    -> modelo VARCHAR(100) NOT NULL,
+    -> chassi VARCHAR(100) NOT NULL,
+    -> id_cor INT,
+    -> FOREIGN KEY (id_cor) REFERENCES cor(id_cor)
+    -> );
+Query OK, 0 rows affected (0.074 sec)
+
+mysql> DESC automovel;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_automovel | int          | NO   | PRI | NULL    | auto_increment |
+| modelo       | varchar(100) | NO   |     | NULL    |                |
+| chassi       | varchar(100) | NO   |     | NULL    |                |
+| id_cor       | int          | YES  | MUL | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.003 sec)
+
+mysql> exit;
+mysql> INSERT INTO cor ('vermelho', 'bellacor'), ('preto', 'bellacor'), ('branco', 'arco-iro'), ('cinza', 'darked'), ('amarelo', 'sunshinecolor');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''vermelho', 'bellacor'), ('preto', 'bellacor'), ('branco', 'arco-iro'), ('cinza'' at line 1
+mysql> INSERT INTO cor VALUES('vermelho', 'bellacor'), ('preto', 'bellacor'), ('branco', 'arco-iro'), ('cinza', 'darked'), ('amarelo', 'sunshinecolor');
+ERROR 1046 (3D000): No database selected
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| lab                |
+| lab2               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.001 sec)
+
+mysql> use lab2;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> INSERT INTO cor VALUES('vermelho', 'bellacor'), ('preto', 'bellacor'), ('branco', 'arco-iro'), ('cinza', 'darked'), ('amarelo', 'sunshinecolor');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> DESC cor
+    -> ;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id_cor     | int          | NO   | PRI | NULL    | auto_increment |
+| nome       | varchar(100) | NO   |     | NULL    |                |
+| fabricante | varchar(100) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.002 sec)
+
+mysql> INSERT INTO cor VALUES(1, 'vermelho', 'bellacor'), (2, 'preto', 'bellacor'), (3, 'branco', 'arco-iro'), (4, 'cinza', 'darked'), (5, 'amarelo', 'sunshinecolor');
+Query OK, 5 rows affected (0.005 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM cor;
++--------+----------+---------------+
+| id_cor | nome     | fabricante    |
++--------+----------+---------------+
+|      1 | vermelho | bellacor      |
+|      2 | preto    | bellacor      |
+|      3 | branco   | arco-iro      |
+|      4 | cinza    | darked        |
+|      5 | amarelo  | sunshinecolor |
++--------+----------+---------------+
+5 rows in set (0.001 sec)
+
+mysql> DESC automovel
+    -> ;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_automovel | int          | NO   | PRI | NULL    | auto_increment |
+| modelo       | varchar(100) | NO   |     | NULL    |                |
+| chassi       | varchar(100) | NO   |     | NULL    |                |
+| id_cor       | int          | YES  | MUL | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.001 sec)
+
+mysql> INSERT INTO automovel VALUES(1, 'civic', '2YfX3cJxRMvk03763', 3), (2, 'kart', '8rzwLrz4kvPD44466', 1), (3, 'uno', '7D5e59HesNvnp1086', 4), (4, 'gol', '9kvUjF0ws1T2u3272', 2), (5, 'kwid', '5yUFep67TUt2t9873', 5);
+Query OK, 5 rows affected (0.003 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM automovel;
++--------------+--------+-------------------+--------+
+| id_automovel | modelo | chassi            | id_cor |
++--------------+--------+-------------------+--------+
+|            1 | civic  | 2YfX3cJxRMvk03763 |      3 |
+|            2 | kart   | 8rzwLrz4kvPD44466 |      1 |
+|            3 | uno    | 7D5e59HesNvnp1086 |      4 |
+|            4 | gol    | 9kvUjF0ws1T2u3272 |      2 |
+|            5 | kwid   | 5yUFep67TUt2t9873 |      5 |
++--------------+--------+-------------------+--------+
+5 rows in set (0.001 sec)
+
+mysql> notee;
+mysql> USE lab2;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE assunto(
+    -> id_assunto INT PRIMARY KEY AUTO_INCREMENT,
+    -> descricao VARCHAR(100) NOT NULL);
+Query OK, 0 rows affected (0.024 sec)
+
+mysql> DESC assunto;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id_assunto | int          | NO   | PRI | NULL    | auto_increment |
+| descricao  | varchar(100) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.001 sec)
+
+mysql> CREATE TABLE senha(
+    -> id_senha INT PRIMARY KEY AUTO_INCREMENT,
+    -> dataHoraGerada DATETIME NOT NULL,
+    -> inicioAtendimento TIME,
+    -> fimAtendimento TIME,
+    -> numero INT NOT NULL,
+    -> id_assunto INT NOT NULL,
+    -> FOREIGN KEY (id_assunto) REFERENCES assunto (id_assunto));
+Query OK, 0 rows affected (0.041 sec)
+
+mysql> DESC senha;
++-------------------+----------+------+-----+---------+----------------+
+| Field             | Type     | Null | Key | Default | Extra          |
++-------------------+----------+------+-----+---------+----------------+
+| id_senha          | int      | NO   | PRI | NULL    | auto_increment |
+| dataHoraGerada    | datetime | NO   |     | NULL    |                |
+| inicioAtendimento | time     | YES  |     | NULL    |                |
+| fimAtendimento    | time     | YES  |     | NULL    |                |
+| numero            | int      | NO   |     | NULL    |                |
+| id_assunto        | int      | NO   | MUL | NULL    |                |
++-------------------+----------+------+-----+---------+----------------+
+6 rows in set (0.002 sec)
+
+mysql> INSERT INTO assunto VALUES (1, 'Pagamentos'), (2, 'Cadastro'), (3, 'Cancelamento'), (4, 'Outros');
+Query OK, 4 rows affected (0.004 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM assunto;
++------------+--------------+
+| id_assunto | descricao    |
++------------+--------------+
+|          1 | Pagamentos   |
+|          2 | Cadastro     |
+|          3 | Cancelamento |
+|          4 | Outros       |
++------------+--------------+
+4 rows in set (0.000 sec)
+
+mysql> INSERT INTO assunto (id_senha, dataHoraGerada, numero, id_assunto) VALUES (1, NOW(), 1, 1), (2, NOW(), 2, 1), (3, NOW(), 3, 1), (4, NOW(), 4, 2), (5, NOW(), 5, 2), (6, NOW(), 6, 4), (7, NOW(), 7, 4), (8, NOW(), 8, 4), (9, NOW(), 9, 4), (10, NOW(), 10, 4);
+ERROR 1054 (42S22): Unknown column 'id_senha' in 'field list'
+mysql> INSERT INTO senha (id_senha, dataHoraGerada, numero, id_assunto) VALUES (1, NOW(), 1, 1), (2, NOW(), 2, 1), (3, NOW(), 3, 1), (4, NOW(), 4, 2), (5, NOW(), 5, 2), (6, NOW(), 6, 4), (7, NOW(), 7, 4), (8, NOW(), 8, 4), (9, NOW(), 9, 4), (10, NOW(), 10, 4);
+Query OK, 10 rows affected (0.006 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM senha JOIN assunto;
++----------+---------------------+-------------------+----------------+--------+------------+------------+--------------+
+| id_senha | dataHoraGerada      | inicioAtendimento | fimAtendimento | numero | id_assunto | id_assunto | descricao    |
++----------+---------------------+-------------------+----------------+--------+------------+------------+--------------+
+|        1 | 2025-05-06 14:49:42 | NULL              | NULL           |      1 |          1 |          4 | Outros       |
+|        1 | 2025-05-06 14:49:42 | NULL              | NULL           |      1 |          1 |          3 | Cancelamento |
+|        1 | 2025-05-06 14:49:42 | NULL              | NULL           |      1 |          1 |          2 | Cadastro     |
+|        1 | 2025-05-06 14:49:42 | NULL              | NULL           |      1 |          1 |          1 | Pagamentos   |
+|        2 | 2025-05-06 14:49:42 | NULL              | NULL           |      2 |          1 |          4 | Outros       |
+|        2 | 2025-05-06 14:49:42 | NULL              | NULL           |      2 |          1 |          3 | Cancelamento |
+|        2 | 2025-05-06 14:49:42 | NULL              | NULL           |      2 |          1 |          2 | Cadastro     |
+|        2 | 2025-05-06 14:49:42 | NULL              | NULL           |      2 |          1 |          1 | Pagamentos   |
+|        3 | 2025-05-06 14:49:42 | NULL              | NULL           |      3 |          1 |          4 | Outros       |
+|        3 | 2025-05-06 14:49:42 | NULL              | NULL           |      3 |          1 |          3 | Cancelamento |
+|        3 | 2025-05-06 14:49:42 | NULL              | NULL           |      3 |          1 |          2 | Cadastro     |
+|        3 | 2025-05-06 14:49:42 | NULL              | NULL           |      3 |          1 |          1 | Pagamentos   |
+|        4 | 2025-05-06 14:49:42 | NULL              | NULL           |      4 |          2 |          4 | Outros       |
+|        4 | 2025-05-06 14:49:42 | NULL              | NULL           |      4 |          2 |          3 | Cancelamento |
+|        4 | 2025-05-06 14:49:42 | NULL              | NULL           |      4 |          2 |          2 | Cadastro     |
+|        4 | 2025-05-06 14:49:42 | NULL              | NULL           |      4 |          2 |          1 | Pagamentos   |
+|        5 | 2025-05-06 14:49:42 | NULL              | NULL           |      5 |          2 |          4 | Outros       |
+|        5 | 2025-05-06 14:49:42 | NULL              | NULL           |      5 |          2 |          3 | Cancelamento |
+|        5 | 2025-05-06 14:49:42 | NULL              | NULL           |      5 |          2 |          2 | Cadastro     |
+|        5 | 2025-05-06 14:49:42 | NULL              | NULL           |      5 |          2 |          1 | Pagamentos   |
+|        6 | 2025-05-06 14:49:42 | NULL              | NULL           |      6 |          4 |          4 | Outros       |
+|        6 | 2025-05-06 14:49:42 | NULL              | NULL           |      6 |          4 |          3 | Cancelamento |
+|        6 | 2025-05-06 14:49:42 | NULL              | NULL           |      6 |          4 |          2 | Cadastro     |
+|        6 | 2025-05-06 14:49:42 | NULL              | NULL           |      6 |          4 |          1 | Pagamentos   |
+|        7 | 2025-05-06 14:49:42 | NULL              | NULL           |      7 |          4 |          4 | Outros       |
+|        7 | 2025-05-06 14:49:42 | NULL              | NULL           |      7 |          4 |          3 | Cancelamento |
+|        7 | 2025-05-06 14:49:42 | NULL              | NULL           |      7 |          4 |          2 | Cadastro     |
+|        7 | 2025-05-06 14:49:42 | NULL              | NULL           |      7 |          4 |          1 | Pagamentos   |
+|        8 | 2025-05-06 14:49:42 | NULL              | NULL           |      8 |          4 |          4 | Outros       |
+|        8 | 2025-05-06 14:49:42 | NULL              | NULL           |      8 |          4 |          3 | Cancelamento |
+|        8 | 2025-05-06 14:49:42 | NULL              | NULL           |      8 |          4 |          2 | Cadastro     |
+|        8 | 2025-05-06 14:49:42 | NULL              | NULL           |      8 |          4 |          1 | Pagamentos   |
+|        9 | 2025-05-06 14:49:42 | NULL              | NULL           |      9 |          4 |          4 | Outros       |
+|        9 | 2025-05-06 14:49:42 | NULL              | NULL           |      9 |          4 |          3 | Cancelamento |
+|        9 | 2025-05-06 14:49:42 | NULL              | NULL           |      9 |          4 |          2 | Cadastro     |
+|        9 | 2025-05-06 14:49:42 | NULL              | NULL           |      9 |          4 |          1 | Pagamentos   |
+|       10 | 2025-05-06 14:49:42 | NULL              | NULL           |     10 |          4 |          4 | Outros       |
+|       10 | 2025-05-06 14:49:42 | NULL              | NULL           |     10 |          4 |          3 | Cancelamento |
+|       10 | 2025-05-06 14:49:42 | NULL              | NULL           |     10 |          4 |          2 | Cadastro     |
+|       10 | 2025-05-06 14:49:42 | NULL              | NULL           |     10 |          4 |          1 | Pagamentos   |
++----------+---------------------+-------------------+----------------+--------+------------+------------+--------------+
+40 rows in set (0.001 sec)
+
+mysql> SELECT * FROM senha;
++----------+---------------------+-------------------+----------------+--------+------------+
+| id_senha | dataHoraGerada      | inicioAtendimento | fimAtendimento | numero | id_assunto |
++----------+---------------------+-------------------+----------------+--------+------------+
+|        1 | 2025-05-06 14:49:42 | NULL              | NULL           |      1 |          1 |
+|        2 | 2025-05-06 14:49:42 | NULL              | NULL           |      2 |          1 |
+|        3 | 2025-05-06 14:49:42 | NULL              | NULL           |      3 |          1 |
+|        4 | 2025-05-06 14:49:42 | NULL              | NULL           |      4 |          2 |
+|        5 | 2025-05-06 14:49:42 | NULL              | NULL           |      5 |          2 |
+|        6 | 2025-05-06 14:49:42 | NULL              | NULL           |      6 |          4 |
+|        7 | 2025-05-06 14:49:42 | NULL              | NULL           |      7 |          4 |
+|        8 | 2025-05-06 14:49:42 | NULL              | NULL           |      8 |          4 |
+|        9 | 2025-05-06 14:49:42 | NULL              | NULL           |      9 |          4 |
+|       10 | 2025-05-06 14:49:42 | NULL              | NULL           |     10 |          4 |
++----------+---------------------+-------------------+----------------+--------+------------+
+10 rows in set (0.000 sec)
+
+mysql> SELECT * FROM senha NATURAL JOIN assunto;
++------------+----------+---------------------+-------------------+----------------+--------+------------+
+| id_assunto | id_senha | dataHoraGerada      | inicioAtendimento | fimAtendimento | numero | descricao  |
++------------+----------+---------------------+-------------------+----------------+--------+------------+
+|          1 |        1 | 2025-05-06 14:49:42 | NULL              | NULL           |      1 | Pagamentos |
+|          1 |        2 | 2025-05-06 14:49:42 | NULL              | NULL           |      2 | Pagamentos |
+|          1 |        3 | 2025-05-06 14:49:42 | NULL              | NULL           |      3 | Pagamentos |
+|          2 |        4 | 2025-05-06 14:49:42 | NULL              | NULL           |      4 | Cadastro   |
+|          2 |        5 | 2025-05-06 14:49:42 | NULL              | NULL           |      5 | Cadastro   |
+|          4 |        6 | 2025-05-06 14:49:42 | NULL              | NULL           |      6 | Outros     |
+|          4 |        7 | 2025-05-06 14:49:42 | NULL              | NULL           |      7 | Outros     |
+|          4 |        8 | 2025-05-06 14:49:42 | NULL              | NULL           |      8 | Outros     |
+|          4 |        9 | 2025-05-06 14:49:42 | NULL              | NULL           |      9 | Outros     |
+|          4 |       10 | 2025-05-06 14:49:42 | NULL              | NULL           |     10 | Outros     |
++------------+----------+---------------------+-------------------+----------------+--------+------------+
+10 rows in set (0.001 sec)
+
+mysql> SELECT id_senha, dataHoraGerada, numero, descricao FROM senha NATURAL JOIN assunto;
++----------+---------------------+--------+------------+
+| id_senha | dataHoraGerada      | numero | descricao  |
++----------+---------------------+--------+------------+
+|        1 | 2025-05-06 14:49:42 |      1 | Pagamentos |
+|        2 | 2025-05-06 14:49:42 |      2 | Pagamentos |
+|        3 | 2025-05-06 14:49:42 |      3 | Pagamentos |
+|        4 | 2025-05-06 14:49:42 |      4 | Cadastro   |
+|        5 | 2025-05-06 14:49:42 |      5 | Cadastro   |
+|        6 | 2025-05-06 14:49:42 |      6 | Outros     |
+|        7 | 2025-05-06 14:49:42 |      7 | Outros     |
+|        8 | 2025-05-06 14:49:42 |      8 | Outros     |
+|        9 | 2025-05-06 14:49:42 |      9 | Outros     |
+|       10 | 2025-05-06 14:49:42 |     10 | Outros     |
++----------+---------------------+--------+------------+
+10 rows in set (0.000 sec)
+
+mysql> UPDATE senha SET inicioAtendimento = TIME() WHERE numero = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') WHERE numero = 1' at line 1
+mysql> UPDATE senha SET inicioAtendimento = time() WHERE numero = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') WHERE numero = 1' at line 1
+mysql> UPDATE senha SET inicioAtendimento = NOW() WHERE numero = 1;
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT id_senha, dataHoraGerada, numero, descricao FROM senha NATURAL JOIN assunto;
++----------+---------------------+--------+------------+
+| id_senha | dataHoraGerada      | numero | descricao  |
++----------+---------------------+--------+------------+
+|        1 | 2025-05-06 14:49:42 |      1 | Pagamentos |
+|        2 | 2025-05-06 14:49:42 |      2 | Pagamentos |
+|        3 | 2025-05-06 14:49:42 |      3 | Pagamentos |
+|        4 | 2025-05-06 14:49:42 |      4 | Cadastro   |
+|        5 | 2025-05-06 14:49:42 |      5 | Cadastro   |
+|        6 | 2025-05-06 14:49:42 |      6 | Outros     |
+|        7 | 2025-05-06 14:49:42 |      7 | Outros     |
+|        8 | 2025-05-06 14:49:42 |      8 | Outros     |
+|        9 | 2025-05-06 14:49:42 |      9 | Outros     |
+|       10 | 2025-05-06 14:49:42 |     10 | Outros     |
++----------+---------------------+--------+------------+
+10 rows in set (0.000 sec)
+
+mysql> SELECT id_senha, dataHoraGerada, inicioAtendimento, numero, descricao FROM senha NATURAL JOIN assunto;
++----------+---------------------+-------------------+--------+------------+
+| id_senha | dataHoraGerada      | inicioAtendimento | numero | descricao  |
++----------+---------------------+-------------------+--------+------------+
+|        1 | 2025-05-06 14:49:42 | 14:59:12          |      1 | Pagamentos |
+|        2 | 2025-05-06 14:49:42 | NULL              |      2 | Pagamentos |
+|        3 | 2025-05-06 14:49:42 | NULL              |      3 | Pagamentos |
+|        4 | 2025-05-06 14:49:42 | NULL              |      4 | Cadastro   |
+|        5 | 2025-05-06 14:49:42 | NULL              |      5 | Cadastro   |
+|        6 | 2025-05-06 14:49:42 | NULL              |      6 | Outros     |
+|        7 | 2025-05-06 14:49:42 | NULL              |      7 | Outros     |
+|        8 | 2025-05-06 14:49:42 | NULL              |      8 | Outros     |
+|        9 | 2025-05-06 14:49:42 | NULL              |      9 | Outros     |
+|       10 | 2025-05-06 14:49:42 | NULL              |     10 | Outros     |
++----------+---------------------+-------------------+--------+------------+
+10 rows in set (0.000 sec)
+
+mysql> UPDATE senha SET inicioAtendimento = NOW() WHERE numero = 2;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE senha SET inicioAtendimento = NOW() WHERE numero = 3;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE senha SET inicioAtendimento = NOW() WHERE numero = 4;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT id_senha, dataHoraGerada, inicioAtendimento, numero, descricao FROM senha NATURAL JOIN assunto;
++----------+---------------------+-------------------+--------+------------+
+| id_senha | dataHoraGerada      | inicioAtendimento | numero | descricao  |
++----------+---------------------+-------------------+--------+------------+
+|        1 | 2025-05-06 14:49:42 | 14:59:12          |      1 | Pagamentos |
+|        2 | 2025-05-06 14:49:42 | 14:59:57          |      2 | Pagamentos |
+|        3 | 2025-05-06 14:49:42 | 15:00:17          |      3 | Pagamentos |
+|        4 | 2025-05-06 14:49:42 | 15:00:35          |      4 | Cadastro   |
+|        5 | 2025-05-06 14:49:42 | NULL              |      5 | Cadastro   |
+|        6 | 2025-05-06 14:49:42 | NULL              |      6 | Outros     |
+|        7 | 2025-05-06 14:49:42 | NULL              |      7 | Outros     |
+|        8 | 2025-05-06 14:49:42 | NULL              |      8 | Outros     |
+|        9 | 2025-05-06 14:49:42 | NULL              |      9 | Outros     |
+|       10 | 2025-05-06 14:49:42 | NULL              |     10 | Outros     |
++----------+---------------------+-------------------+--------+------------+
+10 rows in set (0.000 sec)
+
+mysql> UPDATE senha SET fimAtendimento = NOW() WHERE numero = 1;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE senha SET fimAtendimento = NOW() WHERE numero = 2;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE senha SET fimAtendimento = NOW() WHERE numero = 3;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT id_senha, dataHoraGerada, inicioAtendimento, fimAtendimento, numero, descricao FROM senha NATURAL JOIN assunto;
++----------+---------------------+-------------------+----------------+--------+------------+
+| id_senha | dataHoraGerada      | inicioAtendimento | fimAtendimento | numero | descricao  |
++----------+---------------------+-------------------+----------------+--------+------------+
+|        1 | 2025-05-06 14:49:42 | 14:59:12          | 15:05:25       |      1 | Pagamentos |
+|        2 | 2025-05-06 14:49:42 | 14:59:57          | 15:05:37       |      2 | Pagamentos |
+|        3 | 2025-05-06 14:49:42 | 15:00:17          | 15:05:54       |      3 | Pagamentos |
+|        4 | 2025-05-06 14:49:42 | 15:00:35          | NULL           |      4 | Cadastro   |
+|        5 | 2025-05-06 14:49:42 | NULL              | NULL           |      5 | Cadastro   |
+|        6 | 2025-05-06 14:49:42 | NULL              | NULL           |      6 | Outros     |
+|        7 | 2025-05-06 14:49:42 | NULL              | NULL           |      7 | Outros     |
+|        8 | 2025-05-06 14:49:42 | NULL              | NULL           |      8 | Outros     |
+|        9 | 2025-05-06 14:49:42 | NULL              | NULL           |      9 | Outros     |
+|       10 | 2025-05-06 14:49:42 | NULL              | NULL           |     10 | Outros     |
++----------+---------------------+-------------------+----------------+--------+------------+
+10 rows in set (0.001 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento = NULL ORDER BY numero;
+Empty set (0.001 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento;
++--------+---------------------+
+| numero | dataHoraGerada      |
++--------+---------------------+
+|      1 | 2025-05-06 14:49:42 |
+|      2 | 2025-05-06 14:49:42 |
+|      3 | 2025-05-06 14:49:42 |
+|      4 | 2025-05-06 14:49:42 |
++--------+---------------------+
+4 rows in set (0.001 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento = null;
+Empty set (0.000 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento = NULL;
+Empty set (0.000 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE !inicioAtendimento;
+Empty set, 1 warning (0.001 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento = 'NULL';
+Empty set, 1 warning (0.001 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento IS NOT NULL;
++--------+---------------------+
+| numero | dataHoraGerada      |
++--------+---------------------+
+|      1 | 2025-05-06 14:49:42 |
+|      2 | 2025-05-06 14:49:42 |
+|      3 | 2025-05-06 14:49:42 |
+|      4 | 2025-05-06 14:49:42 |
++--------+---------------------+
+4 rows in set (0.000 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento IS NULL;
++--------+---------------------+
+| numero | dataHoraGerada      |
++--------+---------------------+
+|      5 | 2025-05-06 14:49:42 |
+|      6 | 2025-05-06 14:49:42 |
+|      7 | 2025-05-06 14:49:42 |
+|      8 | 2025-05-06 14:49:42 |
+|      9 | 2025-05-06 14:49:42 |
+|     10 | 2025-05-06 14:49:42 |
++--------+---------------------+
+6 rows in set (0.000 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento IS NULL ORDER BY numero;
++--------+---------------------+
+| numero | dataHoraGerada      |
++--------+---------------------+
+|      5 | 2025-05-06 14:49:42 |
+|      6 | 2025-05-06 14:49:42 |
+|      7 | 2025-05-06 14:49:42 |
+|      8 | 2025-05-06 14:49:42 |
+|      9 | 2025-05-06 14:49:42 |
+|     10 | 2025-05-06 14:49:42 |
++--------+---------------------+
+6 rows in set (0.000 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento IS NULL ORDER BY numero DECS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DECS' at line 1
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento IS NULL ORDER BY numero DESC;
++--------+---------------------+
+| numero | dataHoraGerada      |
++--------+---------------------+
+|     10 | 2025-05-06 14:49:42 |
+|      9 | 2025-05-06 14:49:42 |
+|      8 | 2025-05-06 14:49:42 |
+|      7 | 2025-05-06 14:49:42 |
+|      6 | 2025-05-06 14:49:42 |
+|      5 | 2025-05-06 14:49:42 |
++--------+---------------------+
+6 rows in set (0.001 sec)
+
+mysql> SELECT numero, dataHoraGerada FROM senha WHERE inicioAtendimento IS NULL ORDER BY numero;
++--------+---------------------+
+| numero | dataHoraGerada      |
++--------+---------------------+
+|      5 | 2025-05-06 14:49:42 |
+|      6 | 2025-05-06 14:49:42 |
+|      7 | 2025-05-06 14:49:42 |
+|      8 | 2025-05-06 14:49:42 |
+|      9 | 2025-05-06 14:49:42 |
+|     10 | 2025-05-06 14:49:42 |
++--------+---------------------+
+6 rows in set (0.000 sec)
+
+mysql> SELECT numero FROM senha
+    -> ;
++--------+
+| numero |
++--------+
+|      1 |
+|      2 |
+|      3 |
+|      4 |
+|      5 |
+|      6 |
+|      7 |
+|      8 |
+|      9 |
+|     10 |
++--------+
+10 rows in set (0.001 sec)
+
+mysql> SELECT numero FROM senha WHERE inicioAtendimento IS NULL;
++--------+
+| numero |
++--------+
+|      5 |
+|      6 |
+|      7 |
+|      8 |
+|      9 |
+|     10 |
++--------+
+6 rows in set (0.000 sec)
+
+mysql> SELECT numero FROM senha WHERE inicioAtendimento IS NULL LIMIT = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 1' at line 1
+mysql> SELECT numero FROM senha WHERE inicioAtendimento IS NULL LIMIT 1;
++--------+
+| numero |
++--------+
+|      5 |
++--------+
+1 row in set (0.001 sec)
+
+mysql> SELECT MIN(numero) FROM senha WHERE inicioAtendimento IS NULL;
++-------------+
+| MIN(numero) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.002 sec)
+
+mysql> SELECT descricao, CONT(*) AS descricao FROM senha NATURAL JOIN assunto WHERE inicioAtendimento IS NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) AS descricao FROM senha NATURAL JOIN assunto WHERE inicioAtendimento IS NULL' at line 1
+mysql> SELECT descricao, CONT(*) AS descricao FROM senha NATURAL JOIN assunto;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) AS descricao FROM senha NATURAL JOIN assunto' at line 1
+mysql> SELECT descricao, COUNT(*) AS descricao FROM senha NATURAL JOIN assunto WHERE inicioAtendimento IS NULL;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'lab2.assunto.descricao'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT descricao, COUNT(*) AS descricao FROM senha NATURAL JOIN assunto GROUP BY descricao WHERE inicioAtendimento IS NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE inicioAtendimento IS NULL' at line 1
+mysql> SELECT descricao, COUNT(*) AS descricao FROM senha NATURAL JOIN assunto GROUP BY descricao;
++------------+-----------+
+| descricao  | descricao |
++------------+-----------+
+| Pagamentos |         3 |
+| Cadastro   |         2 |
+| Outros     |         5 |
++------------+-----------+
+3 rows in set, 1 warning (0.004 sec)
+
+mysql> SELECT descricao, COUNT(*) AS descricao FROM senha NATURAL JOIN assunto GROUP BY quantidade_senhas;
+ERROR 1054 (42S22): Unknown column 'quantidade_senhas' in 'group statement'
+mysql> SELECT descricao, COUNT(*) AS quantidade_senhas FROM senha NATURAL JOIN assunto GROUP BY descricao;
++------------+-------------------+
+| descricao  | quantidade_senhas |
++------------+-------------------+
+| Pagamentos |                 3 |
+| Cadastro   |                 2 |
+| Outros     |                 5 |
++------------+-------------------+
+3 rows in set (0.000 sec)
+
+mysql> SELECT descricao, COUNT(*) AS quantidade_senhas FROM senha NATURAL JOIN assunto WHERE horaAtendimento IS NULL GROUP BY descricao;
+ERROR 1054 (42S22): Unknown column 'horaAtendimento' in 'where clause'
+mysql> SELECT descricao, COUNT(*) AS quantidade_senhas FROM senha NATURAL JOIN assunto WHERE inicioAtendimento IS NULL GROUP BY descricao;
++-----------+-------------------+
+| descricao | quantidade_senhas |
++-----------+-------------------+
+| Cadastro  |                 1 |
+| Outros    |                 5 |
++-----------+-------------------+
+2 rows in set (0.001 sec)
+
+mysql> SELECT TIMESTAMPDIFF(TIME, inicioAtendimento, fimAtendimento) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TIME, inicioAtendimento, fimAtendimento) AS Tempo_Atendimento FROM senha WHERE i' at line 1
+mysql> SELECT TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL;
++-------------------+
+| Tempo_Atendimento |
++-------------------+
+|                 6 |
+|                 5 |
+|                 5 |
+|              NULL |
++-------------------+
+4 rows in set (0.001 sec)
+
+mysql> SELECT numero ,TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL;
++--------+-------------------+
+| numero | Tempo_Atendimento |
++--------+-------------------+
+|      1 |                 6 |
+|      2 |                 5 |
+|      3 |                 5 |
+|      4 |              NULL |
++--------+-------------------+
+4 rows in set (0.000 sec)
+
+mysql> SELECT numero ,TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
++--------+-------------------+
+| numero | Tempo_Atendimento |
++--------+-------------------+
+|      1 |                 6 |
+|      2 |                 5 |
+|      3 |                 5 |
++--------+-------------------+
+3 rows in set (0.000 sec)
+
+mysql> SELECT numero ,TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) / COUNT(*) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'lab2.senha.numero'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT numero ,TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) / COUNT() AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAte' at line 1
+mysql> SELECT numero ,TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) / COUNT(ALL) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAte' at line 1
+mysql> SELECT numero ,AVG(TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento)) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'lab2.senha.numero'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT numero ,AVG(TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento)) AS Tempo_Atendimento FROM senha GROUP BY numero WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL' at line 1
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT numero ,TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) AS Tempo_Atendimento FROM senha GROUP BY numero WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL' at line 1
+mysql> SELECT numero ,TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
++--------+-------------------+
+| numero | Tempo_Atendimento |
++--------+-------------------+
+|      1 |                 6 |
+|      2 |                 5 |
+|      3 |                 5 |
++--------+-------------------+
+3 rows in set (0.001 sec)
+
+mysql> SELECT AVG(TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento)) AS Tempo_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
++-------------------+
+| Tempo_Atendimento |
++-------------------+
+|            5.3333 |
++-------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT AVG(TIMESTAMPDIFF(MINUTE, inicioAtendimento, fimAtendimento)) AS Tempo_Medio_Atendimento FROM senha WHERE inicioAtendimento IS NOT NULL and fimAtendimento IS NOT NULL;
++-------------------------+
+| Tempo_Medio_Atendimento |
++-------------------------+
+|                  5.3333 |
++-------------------------+
+1 row in set (0.001 sec)
+
+mysql> notee
