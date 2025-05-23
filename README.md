@@ -25,12 +25,26 @@ Dentro da Docker execute o comando abaixo para acessar como root:
 mysql -u root -psenhaRoot
 ```
 
+### Criar arquivo de registro
+
+Dentro do terminal do SQL execute:
+
+```
+tee registro.txt
+```
+
+Faça suas operações e após terminar execute o comando abaixo para parar de registrar e salvar o arquivo.
+
+```
+notee
+```
+
 ## Carregar Backup
 
 ### Copiar arquivo de backup para o docker
 
 ```
-docker cp "<caminho do arquivo na sua máquina>" meumysql:/<nome do arquivo que deve ser criado no docker>
+docker cp "~caminho do arquivo na sua máquina~" meumysql:/backup.sql
 ```
 
 ### Carregar DataBase para o MySql
@@ -38,13 +52,13 @@ docker cp "<caminho do arquivo na sua máquina>" meumysql:/<nome do arquivo que 
 Acesse o MySql e então crie a base de dados caso não exista:
 
 ```SQL
-CREATE DATABASE IF NOT EXISTS <nome do banco de dados>
+CREATE DATABASE IF NOT EXISTS banco
 ```
 
 E então carregue o arquivo de backup pelo bash da Docker:
 
 ```
-mysql <nome do banco de dados> < <nome do arquivo de backup> -u root -psenhaRoot
+mysql banco < backup.sql -u root -psenhaRoot
 ```
 
 Agora o ambiente MySql está pronto para ser usado.
@@ -53,13 +67,16 @@ Agora o ambiente MySql está pronto para ser usado.
 
 ### Salvar Arquivo SQL
 
+Fora da docker execute o comando:
+
 ```
-docker exec meumysql mysqldump -u root -psenhaRoot <nome do base> > <nome arquivo de backup.sql>
+docker exec meumysql mysqldump -u root -psenhaRoot Banco > BackupsSQL/backup.sql
 ```
 
 ### Salvar Arquivo de Registro
 
+Fora da docker execute o comando:
 ```
-docker cp meumysql:/<nome do arquivo.txt> "<caminho na máquina>"
+docker cp meumysql:/registro.txt "~caminho na máquina~"
 ```
 
