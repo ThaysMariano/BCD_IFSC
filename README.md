@@ -48,3 +48,18 @@ mysql <nome do banco de dados> < <nome do arquivo de backup> -u root -psenhaRoot
 ```
 
 Agora o ambiente MySql está pronto para ser usado.
+
+## Salvar Backup
+
+### Salvar Arquivo SQL
+
+```
+docker exec meumysql mysqldump -u root -psenhaRoot <nome do base> > <nome arquivo de backup.sql>
+```
+
+### Salvar Arquivo de Registro
+
+```
+docker cp meumysql:/<nome do arquivo.txt> "<caminho na máquina>"
+```
+

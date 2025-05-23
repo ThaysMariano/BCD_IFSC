@@ -1,0 +1,242 @@
+mysql> SHOW DATA BASES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATA BASES' at line 1
+mysql> SHOW DATA BASE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATA BASE' at line 1
+mysql> SHOW DATABASE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABASE' at line 1
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.015 sec)
+
+mysql> CREATE DATABASE Matricula;
+Query OK, 1 row affected (0.046 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| Matricula          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.002 sec)
+
+mysql> USE Matricula
+Database changed
+mysql> CREATE TABLE Aluno
+    -> (
+    ->   email VARCHAR(100),
+    ->   nome VARCHAR(100) NOT NULL,
+    ->   matricula INT NOT NULL,
+    ->   PRIMARY KEY (matricula)
+    -> );
+Query OK, 0 rows affected (0.022 sec)
+
+mysql> 
+mysql> CREATE TABLE Professor
+    -> (
+    ->   TempoDeCasa DATE NOT NULL,
+    ->   SIAPE VARCHAR(7) NOT NULL,
+    ->   Nome VARCHAR(100) NOT NULL,
+    ->   PRIMARY KEY (SIAPE)
+    -> );
+Query OK, 0 rows affected (0.013 sec)
+
+mysql> 
+mysql> CREATE TABLE Disciplina
+    -> (
+    ->   CargaHoraria INT NOT NULL,
+    ->   Cod INT NOT NULL,
+    ->   Semestre INT NOT NULL,
+    ->   Nome VARCHAR(50) NOT NULL,
+    ->   SIAPE VARCHAR(7) NOT NULL,
+    ->   PRIMARY KEY (Cod),
+    ->   FOREIGN KEY (SIAPE) REFERENCES Professor(SIAPE)
+    -> );
+Query OK, 0 rows affected (0.014 sec)
+
+mysql> 
+mysql> CREATE TABLE faz
+    -> (
+    ->   Estado VARCHAR(10) NOT NULL,
+    ->   matricula INT NOT NULL,
+    ->   Cod INT NOT NULL,
+    ->   PRIMARY KEY (matricula, Cod),
+    ->   FOREIGN KEY (matricula) REFERENCES Aluno(matricula),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod)
+    -> );
+Query OK, 0 rows affected (0.015 sec)
+
+mysql> 
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod_1 INT NOT NULL,
+    ->   Pre-requisitoCod_2 INT NOT NULL,
+    ->   PRIMARY KEY (Cod_1, Pre-requisitoCod_2),
+    ->   FOREIGN KEY (Cod_1) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod_2) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod_1 INT NOT NULL,
+  Pre-requisitoCod_2 INT NOT NULL,
+  PRIMARY ' at line 1
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_Matricula |
++---------------------+
+| Aluno               |
+| Disciplina          |
+| Professor           |
+| faz                 |
++---------------------+
+4 rows in set (0.003 sec)
+
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod_1 INT NOT NULL,
+    ->   Pre-requisitoCod_2 INT NOT NULL,
+    ->   PRIMARY KEY (Cod_1, Pre-requisitoCod_2),
+    ->   FOREIGN KEY (Cod_1) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod_2) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod_1 INT NOT NULL,
+  Pre-requisitoCod_2 INT NOT NULL,
+  PRIMARY ' at line 1
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   Pre-requisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, Pre-requisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod INT NOT NULL,
+  Pre-requisitoCod INT NOT NULL,
+  PRIMARY KEY ' at line 1
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   Pre-requisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, Pre-requisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod INT NOT NULL,
+  Pre-requisitoCod INT NOT NULL,
+  PRIMARY KEY ' at line 1
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   Pre-requisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, Pre-requisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod INT NOT NULL,
+  Pre-requisitoCod INT NOT NULL,
+  PRIMARY KEY ' at line 1
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   Pre-requisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, Pre-requisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod INT NOT NULL,
+  Pre-requisitoCod INT NOT NULL,
+  PRIMARY KEY ' at line 1
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   Pre-requisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, Pre-requisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod INT NOT NULL,
+  Pre-requisitoCod INT NOT NULL,
+  PRIMARY KEY ' at line 1
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   Pre-requisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, Pre-requisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod INT NOT NULL,
+  Pre-requisitoCod INT NOT NULL,
+  PRIMARY KEY ' at line 1
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_Matricula |
++---------------------+
+| Aluno               |
+| Disciplina          |
+| Professor           |
+| faz                 |
++---------------------+
+4 rows in set (0.002 sec)
+
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   Pre-requisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, Pre-requisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (Pre-requisitoCod) REFERENCES Disciplina(Cod)
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod INT NOT NULL,
+  Pre-requisitoCod INT NOT NULL,
+  PRIMARY KEY ' at line 1
+mysql> CREATE TABLE PreRequisito
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   PreRequisitoCod INT NOT NULL,
+    ->   PRIMARY KEY (Cod, PreRequisitoCod),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (PreRequisitoCod) REFERENCES Disciplina(Cod)
+    -> );
+Query OK, 0 rows affected (0.030 sec)
+
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_Matricula |
++---------------------+
+| Aluno               |
+| Disciplina          |
+| PreRequisito        |
+| Professor           |
+| faz                 |
++---------------------+
+5 rows in set (0.003 sec)
+
+mysql> notee;
