@@ -1,5 +1,7 @@
 # IFSC BCD
 
+Dê git clone nesse repositótio
+
 ## Executar a docker
 
 ### Subir o ambiente com Docker Compose
@@ -17,6 +19,11 @@ docker exec -it meumysql bash
 > [!NOTE]
 > Caso esteja no Windows, será preciso executar a docker no Docker Desktop antes de executar o comando acima.
 
+### Copiar arquivo de backup para o docker
+
+```
+docker cp "/home/aluno/BCD_IFSC/<nome .sql salvo>" meumysql:/<nome do arquivo que deve ser criado no docker>
+```
 
 ## Acessar o MySql
 
@@ -26,12 +33,6 @@ mysql -u root -psenhaRoot
 ```
 
 ## Carregar Backup
-
-### Copiar arquivo de backup para o docker
-
-```
-docker cp "<caminho do arquivo na sua máquina>" meumysql:/<nome do arquivo que deve ser criado no docker>
-```
 
 ### Carregar DataBase para o MySql
 
@@ -54,7 +55,7 @@ Agora o ambiente MySql está pronto para ser usado.
 ### Salvar Arquivo SQL
 
 ```
-docker exec meumysql mysqldump -u root -psenhaRoot <nome do base> > <nome arquivo de backup.sql>
+docker exec meumysql mysqldump -u root -psenhaRoot <nome do banco> > <caminho para salvar o .sql>
 ```
 
 ### Salvar Arquivo de Registro
