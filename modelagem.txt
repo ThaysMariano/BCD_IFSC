@@ -1,0 +1,179 @@
+mysql> USE Modelagem
+Database changed
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| Modelagem          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.001 sec)
+
+mysql> DESC Modelagem
+    -> ;
+ERROR 1146 (42S02): Table 'Modelagem.Modelagem' doesn't exist
+mysql> CREATE TABLE Professor
+    -> (
+    ->   Nome VARCHAR(50) NOT NULL,
+    ->   SIAPE INT NOT NULL,
+    ->   TempoDeCasa DATE NOT NULL,
+    ->   PRIMARY KEY (SIAPE)
+    -> );
+Query OK, 0 rows affected (0.025 sec)
+
+mysql> CREATE TABLE Disciplina
+    -> (
+    ->   Cod INT NOT NULL,
+    ->   CargaHoraria INT NOT NULL,
+    ->   Nome VARCHAR(30) NOT NULL,
+    ->   Semestre INT NOT NULL,
+    ->   SIAPE INT NOT NULL,
+    ->   PRIMARY KEY (Cod),
+    ->   FOREIGN KEY (SIAPE) REFERENCES Professor(SIAPE)
+    -> );
+Query OK, 0 rows affected (0.033 sec)
+
+mysql> CREATE TABLE Faz
+    -> (
+    ->   Estado VARCHAR(20) NOT NULL,
+    ->   Matricula INT NOT NULL,
+    ->   Cod INT NOT NULL,
+    ->   PRIMARY KEY (Matricula, Cod),
+    ->   FOREIGN KEY (Matricula) REFERENCES Aluno(Matricula),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'Aluno'
+mysql> CREATE TABLE Aluno
+    -> (
+    ->   Nome VARCHAR(50) NOT NULL,
+    ->   Email VARCHAR(80),
+    ->   Matricula INT NOT NULL,
+    ->   PRIMARY KEY (Matricula)
+    -> );
+Query OK, 0 rows affected (0.024 sec)
+
+mysql> CREATE TABLE Faz
+    -> (
+    ->   Estado VARCHAR(20) NOT NULL,
+    ->   Matricula INT NOT NULL,
+    ->   Cod INT NOT NULL,
+    ->   PRIMARY KEY (Matricula, Cod),
+    ->   FOREIGN KEY (Matricula) REFERENCES Aluno(Matricula),
+    ->   FOREIGN KEY (Cod) REFERENCES Disciplina(Cod)
+    -> );
+Query OK, 0 rows affected (0.026 sec)
+
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod_1 INT NOT NULL,
+    ->   PreRequisitoCod_2 INT NOT NULL,
+    ->   PRIMARY KEY (Cod_1, Pre-requisitoCod_2),
+    ->   FOREIGN KEY (Cod_1) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (PreRequisitoCod_2) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod_1 INT NOT NULL,
+  PreRequisitoCod_2 INT NOT NULL,
+  PRIMARY K' at line 1
+mysql> CREATE TABLE Pre-requisito
+    -> (
+    ->   Cod_1 INT NOT NULL,
+    ->   PreRequisitoCod_2 INT NOT NULL,
+    ->   PRIMARY KEY (Cod_1, PreRequisitoCod_2),
+    ->   FOREIGN KEY (Cod_1) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (PreRequisitoCod_2) REFERENCES Disciplina(Cod)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-requisito
+(
+  Cod_1 INT NOT NULL,
+  PreRequisitoCod_2 INT NOT NULL,
+  PRIMARY K' at line 1
+mysql> CREATE TABLE PreRequisito
+    -> (
+    ->   Cod_1 INT NOT NULL,
+    ->   PreRequisitoCod_2 INT NOT NULL,
+    ->   PRIMARY KEY (Cod_1, PreRequisitoCod_2),
+    ->   FOREIGN KEY (Cod_1) REFERENCES Disciplina(Cod),
+    ->   FOREIGN KEY (PreRequisitoCod_2) REFERENCES Disciplina(Cod)
+    -> );
+Query OK, 0 rows affected (0.064 sec)
+
+mysql> DESC Modelagem
+    -> ;
+ERROR 1146 (42S02): Table 'Modelagem.Modelagem' doesn't exist
+mysql> DESC
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| Modelagem          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.001 sec)
+
+mysql> DESC Aluno
+    -> ;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nome      | varchar(50) | NO   |     | NULL    |       |
+| Email     | varchar(80) | YES  |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.004 sec)
+
+mysql> ALTER TABLE Disciplina ADD CHECK (semestre>0 AND semestre<=5 AND CargaHoraria>0 AND )
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> ALTER TABLE Disciplina ADD CHECK (semestre>0 AND semestre<=5 AND CargaHoraria>0 AND);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> ALTER TABLE Disciplina ADD CHECK (semestre>0 AND semestre<=5 AND CargaHoraria>0);
+Query OK, 0 rows affected (0.105 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Aluno ADD CHECK (estado='Cursando' OR estado='Concluido' OR estado='Trancado' OR estado='Reprovado')
+    -> ;
+ERROR 1054 (42S22): Unknown column 'estado' in 'check constraint Aluno_chk_1 expression'
+mysql> ALTER TABLE Faz ADD CHECK (estado='Cursando' OR estado='Concluido' OR estado='Trancado' OR estado='Reprovado');
+Query OK, 0 rows affected (0.091 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE PreRequisito ADD CHECK (Cod_1!=PreRequisitoCod2);
+ERROR 1054 (42S22): Unknown column 'PreRequisitoCod2' in 'check constraint PreRequisito_chk_1 expression'
+mysql> ALTER TABLE PreRequisito ADD CHECK (Cod_1!=PreRequisitoCod_2);
+Query OK, 0 rows affected (0.057 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Professor (SIAPE, Nome, Email, TempoDeCasa) VALUES (1001, 'Maria Luz', 'maria.luz@ifsc.edu.br' '2015-03-10');
+ERROR 1054 (42S22): Unknown column 'Email' in 'field list'
+mysql> INSERT INTO Professor (SIAPE, Nome, TempoDeCasa) VALUES (1001, 'Maria Luz', '2015-03-10');
+Query OK, 1 row affected (0.012 sec)
+
+mysql> INSERT INTO Professor (SIAPE, Nome, TempoDeCasa) VALUES (1002, 'Carlos Eduardo Silva', '2012-07-01');
+Query OK, 1 row affected (0.012 sec)
+
+mysql> INSERT INTO Professor (SIAPE, Nome, TempoDeCasa) VALUES (1003, 'Fernanda Costa', '2018-11-23');
+Query OK, 1 row affected (0.012 sec)
+
+mysql> INSERT INTO Professor (SIAPE, Nome, TempoDeCasa) VALUES (1004, 'Jao Pedro Almeida', '2014-05-15');
+Query OK, 1 row affected (0.012 sec)
+
+mysql> INSERT INTO Professor (SIAPE, Nome, TempoDeCasa) VALUES (1005, 'Mariana Goncalves', '2016-09-30');
+Query OK, 1 row affected (0.012 sec)
+
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (101, 'Matematica I', 1, 60, 1001), (102, 'Introducao a Programacao', 1, 80, 1002);
+Query OK, 2 rows affected (0.013 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> notee

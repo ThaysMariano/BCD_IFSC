@@ -1,0 +1,686 @@
+mysql> clear
+mysql> USE DATABASE Confeitaria
+ERROR 1049 (42000): Unknown database 'DATABASE'
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| Confeitaria        |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.016 sec)
+
+mysql> USE Confeitaria
+Database changed
+mysql> CREATE TABLE Bolo(
+    -> id INT NOT NULL PRIMARY KEY,
+    -> nome VARCHAR(20) NOT NULL,
+    -> preco DECIMAL(10,2) NOT NULL,
+    -> quantidade INT NOT NULL,
+    -> CHECK(preco>=0 AND quantidade>=0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
+mysql> CREATE TABLE Bolo( id INT NOT NULL PRIMARY KEY, nome VARCHAR(20) NOT NULL, preco DECIMAL(10,2) NOT NULL, quantidade INT NOT NULL, CHECK (preco>=0 AND quantidade>=0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> CREATE TABLE Bolo(id INT NOT NULL PRIMARY KEY, nome VARCHAR(20) NOT NULL, preco DECIMAL(10,2) NOT NULL, quantidade INT NOT NULL, CHECK (preco>=0 AND quantidade>=0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> CREATE TABLE Bolo(id INT NOT NULL PRIMARY KEY, nome VARCHAR(20) NOT NULL, preco DECIMAL(10,2) NOT NULL, quantidade INT NOT NULL, CHECK (preco>=0 AND quantidade>=0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> CREATE TABLE Bolo(id INT NOT NULL PRIMARY KEY, nome VARCHAR(20) NOT NULL, preco DECIMAL(10,2) NOT NULL, quantidade INT NOT NULL, CHECK (preco>=0 AND quantidade>=0));
+Query OK, 0 rows affected (0.059 sec)
+
+mysql> DESC Bolo
+    -> ;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id         | int           | NO   | PRI | NULL    |       |
+| nome       | varchar(20)   | NO   |     | NULL    |       |
+| preco      | decimal(10,2) | NO   |     | NULL    |       |
+| quantidade | int           | NO   |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.003 sec)
+
+mysql> INSERT INTO Bolo (id, nome, preco, quantidade) VALUES (1, 'bolo de chocolate', '12.5', 8), (2, 'bolo de morango', '16,48', 3), (3, 'bolo de banana', '15,21', 5), (4, 'bolo formigueiro', '14,65', 11), (5, 'bolo de pote', '8,75', 6);
+ERROR 1366 (HY000): Incorrect decimal value: '16,48' for column 'preco' at row 2
+mysql> INSERT INTO Bolo (id, nome, preco, quantidade) VALUES (1, 'bolo de chocolate', '12.5', 8), (2, 'bolo de morango', '16.48', 3), (3, 'bolo de banana', '15.21', 5), (4, 'bolo formigueiro', '14.65', 11), (5, 'bolo de pote', '8.75', 6);
+Query OK, 5 rows affected (0.012 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Bolo (id, nome, preco, quantidade) VALUES (6, 'bolinho', '-12.00', 4)
+    -> ;
+ERROR 3819 (HY000): Check constraint 'Bolo_chk_1' is violated.
+mysql> INSERT INTO Bolo (id, nome, preco, quantidade) VALUES (6, 'bolinho', '12.00', -3)
+    -> ;
+ERROR 3819 (HY000): Check constraint 'Bolo_chk_1' is violated.
+mysql> SELECT nome, quantidade CASE quantidade WHEN 0 THEN 'sem estoque' WHEN >5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CASE quantidade WHEN 0 THEN 'sem estoque' WHEN >5 THEN 'baixo' ELSE 'normal' END' at line 1
+mysql> SELECT nome, quantidade CASE 'quantidade' WHEN 0 THEN 'sem estoque' WHEN >5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CASE 'quantidade' WHEN 0 THEN 'sem estoque' WHEN >5 THEN 'baixo' ELSE 'normal' E' at line 1
+mysql> SELECT nome, quantidade, CASE quantidade WHEN quantidade=0 THEN 'sem estoque' WHEN quantidade>5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo;
++-------------------+------------+---------+
+| nome              | quantidade | estoque |
++-------------------+------------+---------+
+| bolo de chocolate |          8 | normal  |
+| bolo de morango   |          3 | normal  |
+| bolo de banana    |          5 | normal  |
+| bolo formigueiro  |         11 | normal  |
+| bolo de pote      |          6 | normal  |
++-------------------+------------+---------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT nome, quantidade, CASE quantidade WHEN quantidade=0 THEN 'sem estoque' WHEN quantidade<5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo;
++-------------------+------------+---------+
+| nome              | quantidade | estoque |
++-------------------+------------+---------+
+| bolo de chocolate |          8 | normal  |
+| bolo de morango   |          3 | normal  |
+| bolo de banana    |          5 | normal  |
+| bolo formigueiro  |         11 | normal  |
+| bolo de pote      |          6 | normal  |
++-------------------+------------+---------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT nome, quantidade, CASE quantidade WHEN quantidade = 0 THEN 'sem estoque' WHEN quantidade < 5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo;
++-------------------+------------+---------+
+| nome              | quantidade | estoque |
++-------------------+------------+---------+
+| bolo de chocolate |          8 | normal  |
+| bolo de morango   |          3 | normal  |
+| bolo de banana    |          5 | normal  |
+| bolo formigueiro  |         11 | normal  |
+| bolo de pote      |          6 | normal  |
++-------------------+------------+---------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT nome, quantidade, CASE WHEN quantidade = 0 THEN 'sem estoque' WHEN quantidade < 5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo;
++-------------------+------------+---------+
+| nome              | quantidade | estoque |
++-------------------+------------+---------+
+| bolo de chocolate |          8 | normal  |
+| bolo de morango   |          3 | baixo   |
+| bolo de banana    |          5 | normal  |
+| bolo formigueiro  |         11 | normal  |
+| bolo de pote      |          6 | normal  |
++-------------------+------------+---------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT nome, quantidade, CASE WHEN quantidade = 0 THEN 'sem estoque' WHEN quantidade < 5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo WHERE estoque!= 'normal';
+ERROR 1054 (42S22): Unknown column 'estoque' in 'where clause'
+mysql> SELECT nome, quantidade, CASE WHEN quantidade = 0 THEN 'sem estoque' WHEN quantidade < 5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo WHERE quantidade<=5;
++-----------------+------------+---------+
+| nome            | quantidade | estoque |
++-----------------+------------+---------+
+| bolo de morango |          3 | baixo   |
+| bolo de banana  |          5 | normal  |
++-----------------+------------+---------+
+2 rows in set (0.001 sec)
+
+mysql> SELECT nome, quantidade, CASE WHEN quantidade = 0 THEN 'sem estoque' WHEN quantidade < 5 THEN 'baixo' ELSE 'normal' END estoque FROM Bolo WHERE quantidade<5;
++-----------------+------------+---------+
+| nome            | quantidade | estoque |
++-----------------+------------+---------+
+| bolo de morango |          3 | baixo   |
++-----------------+------------+---------+
+1 row in set (0.001 sec)
+
+mysql> ALTER TABLE Bolo ADD COLUMN categoria VARCHAR(25);
+Query OK, 0 rows affected (0.026 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Bolo
+    -> ;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id         | int           | NO   | PRI | NULL    |       |
+| nome       | varchar(20)   | NO   |     | NULL    |       |
+| preco      | decimal(10,2) | NO   |     | NULL    |       |
+| quantidade | int           | NO   |     | NULL    |       |
+| categoria  | varchar(25)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.003 sec)
+
+mysql> SELECT nome, categoria, CASE WHEN nome LIKE '%colate' THEN categoria='classico' WHEN nome LIKE '%morango' OR 'banana' THEN categoria='frutas' WHEN nome LIKE 'pote' THEN categoria='pote' ELSE categoria='outros' END categoria FROM Bolo;
++-------------------+-----------+-----------+
+| nome              | categoria | categoria |
++-------------------+-----------+-----------+
+| bolo de chocolate | NULL      |      NULL |
+| bolo de morango   | NULL      |      NULL |
+| bolo de banana    | NULL      |      NULL |
+| bolo formigueiro  | NULL      |      NULL |
+| bolo de pote      | NULL      |      NULL |
++-------------------+-----------+-----------+
+5 rows in set, 1 warning (0.001 sec)
+
+mysql> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> ..
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .
+    -> .;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+..
+.
+.
+.
+.
+.
+.
+.
+.' at line 1
+mysql> UPDATE Bolo SET categoria = 'fruta' WHERE id=2 AND id=3;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> DESC Bolo
+    -> ;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id         | int           | NO   | PRI | NULL    |       |
+| nome       | varchar(20)   | NO   |     | NULL    |       |
+| preco      | decimal(10,2) | NO   |     | NULL    |       |
+| quantidade | int           | NO   |     | NULL    |       |
+| categoria  | varchar(25)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.003 sec)
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          8 | NULL      |
+|  2 | bolo de morango   | 16.48 |          3 | NULL      |
+|  3 | bolo de banana    | 15.21 |          5 | NULL      |
+|  4 | bolo formigueiro  | 14.65 |         11 | NULL      |
+|  5 | bolo de pote      |  8.75 |          6 | NULL      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> UPDATE Bolo SET categoria = 'fruta' WHERE id=2;
+Query OK, 1 row affected (0.012 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          8 | NULL      |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | NULL      |
+|  4 | bolo formigueiro  | 14.65 |         11 | NULL      |
+|  5 | bolo de pote      |  8.75 |          6 | NULL      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> UPDATE Bolo SET categoria = 'fruta' WHERE id=3;
+Query OK, 1 row affected (0.045 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          8 | NULL      |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | NULL      |
+|  5 | bolo de pote      |  8.75 |          6 | NULL      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> UPDATE Bolo SET categoria = 'classico' WHERE id=1;
+Query OK, 1 row affected (0.045 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          8 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | NULL      |
+|  5 | bolo de pote      |  8.75 |          6 | NULL      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> UPDATE Bolo SET categoria = 'pote' WHERE id=5;
+Query OK, 1 row affected (0.012 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Bolo SET categoria = 'classico' WHERE id=4;
+Query OK, 1 row affected (0.045 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          8 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | classico  |
+|  5 | bolo de pote      |  8.75 |          6 | pote      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.002 sec)
+
+mysql> SELECT nome, categoria, CASE WHEN preco<=10 THEN 'barato WHEN preco<=15 THEN 'medio' ELSE 'caro' END faixaPreco FROM Bolo;
+    '> ;
+    '> ^C
+mysql> SELECT nome, categoria, CASE WHEN preco<=10 THEN 'barato' WHEN preco<=15 THEN 'medio' ELSE 'caro' END faixaPreco FROM Bolo;
++-------------------+-----------+------------+
+| nome              | categoria | faixaPreco |
++-------------------+-----------+------------+
+| bolo de chocolate | classico  | medio      |
+| bolo de morango   | fruta     | caro       |
+| bolo de banana    | fruta     | caro       |
+| bolo formigueiro  | classico  | medio      |
+| bolo de pote      | pote      | barato     |
++-------------------+-----------+------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT nome, categoria, preco, CASE WHEN preco<=10 THEN 'barato' WHEN preco<=15 THEN 'medio' ELSE 'caro' END faixaPreco FROM Bolo;
++-------------------+-----------+-------+------------+
+| nome              | categoria | preco | faixaPreco |
++-------------------+-----------+-------+------------+
+| bolo de chocolate | classico  | 12.50 | medio      |
+| bolo de morango   | fruta     | 16.48 | caro       |
+| bolo de banana    | fruta     | 15.21 | caro       |
+| bolo formigueiro  | classico  | 14.65 | medio      |
+| bolo de pote      | pote      |  8.75 | barato     |
++-------------------+-----------+-------+------------+
+5 rows in set (0.001 sec)
+
+mysql> CREATE TABLE Venda(
+    -> idVenda INT NOT NULL PRYMARY KEY AUTO_INCREMENT,
+    -> idBolo INT NOT NULL,
+    -> dataVenda DATE,
+    -> quantidadeVendida INT NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRYMARY KEY AUTO_INCREMENT,
+idBolo INT NOT NULL,
+dataVenda DATE,
+quantidadeVendi' at line 2
+mysql> CREATE TABLE Venda( idVenda INT NOT NULL PRYMARY KEY AUTO_INCREMENT, idBolo INT NOT NULL, dataVenda DATE, quantidadeVendida INT NOT NULL) FOREIGN KEY idBolo REFERENCES Bolo(id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRYMARY KEY AUTO_INCREMENT, idBolo INT NOT NULL, dataVenda DATE, quantidadeVendi' at line 1
+mysql> notee
+
+
+
+------------- UNIAO ARQUIVOS---------------
+
+mysql> CREATE TABLE Venda( 
+    -> idVenda INT NOT NULL PRIMARY KEY,
+    -> idBolo INT NOT NULL,
+    -> dataVenda DATE NOT NULL,
+    -> quantidadeVenda INT NOT NULL,
+    -> CHECK (quantidadeVenda>0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
+mysql> CREATE TABLE Venda(  idVenda INT NOT NULL PRIMARY KEY, idBolo INT NOT NULL, dataVenda DATE NOT NULL, quantidadeVenda INT NOT NULL, CHECK (quantidadeVenda>0));
+Query OK, 0 rows affected (0.044 sec)
+
+mysql> BEGIN
+    -> ^C
+mysql> BEGIN TRANSACTION
+    -> ^C
+mysql> BEGIN TRANSACTION;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TRANSACTION' at line 1
+mysql> CREATE TABLE Venda(
+    ->     -> idVenda INT NOT NULL PRIMARY KEY,
+    ->     -> idBolo INT NOT NULL,
+    ->     -> dataVenda DATE NOT NULL,
+    ->     -> quantidadeVenda INT NOT NULL,
+    ->     -> CHECK (quantidadeVenda>0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> idVenda INT NOT NULL PRIMARY KEY,
+    -> idBolo INT NOT NULL,
+    -> dataVend' at line 2
+mysql> CREATE TABLE Venda(
+    ->     ->     -> idVenda INT NOT NULL PRIMARY KEY,
+    ->     ->     -> idBolo INT NOT NULL,
+    ->     ->     -> dataVenda DATE NOT NULL,
+    ->     ->     -> quantidadeVenda INT NOT NULL,
+    ->     ->     -> CHECK (quantidadeVenda>0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '->     -> idVenda INT NOT NULL PRIMARY KEY,
+    ->     -> idBolo INT NOT NULL,
+ ' at line 2
+mysql> DESC Venda
+    -> 
+    -> ;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| idVenda         | int  | NO   | PRI | NULL    |       |
+| idBolo          | int  | NO   |     | NULL    |       |
+| dataVenda       | date | NO   |     | NULL    |       |
+| quantidadeVenda | int  | NO   |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+4 rows in set (0.004 sec)
+
+mysql> ALTER TABLE Venda ADD CONSTRAINT idBolo FOREIGN KEY idBolo REFERENCESS Bolo(id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCESS Bolo(id)' at line 1
+mysql> ALTER TABLE Venda ADD CONSTRAINT idBolo FOREIGN KEY idBolo REFERENCES Bolo(id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCES Bolo(id)' at line 1
+mysql> ALTER TABLE Venda ADD CONSTRAINT idBolo FOREIGN KEY (idBolo) REFERENCES Bolo(id);
+Query OK, 0 rows affected (0.137 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Venda;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| idVenda         | int  | NO   | PRI | NULL    |       |
+| idBolo          | int  | NO   | MUL | NULL    |       |
+| dataVenda       | date | NO   |     | NULL    |       |
+| quantidadeVenda | int  | NO   |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+4 rows in set (0.003 sec)
+
+mysql> DROP TABLE Venda;
+Query OK, 0 rows affected (0.034 sec)
+
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| Confeitaria        |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.001 sec)
+
+mysql> DESC Bolo;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id         | int           | NO   | PRI | NULL    |       |
+| nome       | varchar(20)   | NO   |     | NULL    |       |
+| preco      | decimal(10,2) | NO   |     | NULL    |       |
+| quantidade | int           | NO   |     | NULL    |       |
+| categoria  | varchar(25)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.004 sec)
+
+mysql> DEWSC Venda;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEWSC Venda' at line 1
+mysql> DESC Venda;
+ERROR 1146 (42S02): Table 'Confeitaria.Venda' doesn't exist
+mysql> CREATE TABLE Venda(
+    -> idVenda INT NOT NULL PRIMARY KEY,
+    -> idBOLO INT NOT NULL,
+    -> dataVenda DATE NOT NULL,
+    -> quantidadeVendida INT NOT NULL,
+    -> FOREIGN KEY idBolo REFERENCES Bolo(id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCES Bolo(id)' at line 6
+mysql> CREATE TABLE Venda( idVenda INT NOT NULL PRIMARY KEY, idBOLO INT NOT NULL, dataVenda DATE NOT NULL, quantidadeVendida INT NOT NULL, FOREIGN KEY (idBolo) REFERENCES Bolo(id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> CREATE TABLE Venda( idVenda INT NOT NULL PRIMARY KEY, idBOLO INT NOT NULL, dataVenda DATE NOT NULL, quantidadeVendida INT NOT NULL, FOREIGN KEY (idBolo) REFERENCES Bolo(id));
+Query OK, 0 rows affected (0.041 sec)
+
+mysql> DESC Venda;
++-------------------+------+------+-----+---------+-------+
+| Field             | Type | Null | Key | Default | Extra |
++-------------------+------+------+-----+---------+-------+
+| idVenda           | int  | NO   | PRI | NULL    |       |
+| idBOLO            | int  | NO   | MUL | NULL    |       |
+| dataVenda         | date | NO   |     | NULL    |       |
+| quantidadeVendida | int  | NO   |     | NULL    |       |
++-------------------+------+------+-----+---------+-------+
+4 rows in set (0.004 sec)
+
+mysql> BEGIN TRANSACTION;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TRANSACTION' at line 1
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> UPDATE Bolo SET estoque = estoque-2 WHERE id=1;
+ERROR 1054 (42S22): Unknown column 'estoque' in 'field list'
+mysql> DESC Bolo;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id         | int           | NO   | PRI | NULL    |       |
+| nome       | varchar(20)   | NO   |     | NULL    |       |
+| preco      | decimal(10,2) | NO   |     | NULL    |       |
+| quantidade | int           | NO   |     | NULL    |       |
+| categoria  | varchar(25)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.003 sec)
+
+mysql> UPDATE Bolo SET quantidade = quantidade-2 WHERE id=1;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> DESC Venda;
++-------------------+------+------+-----+---------+-------+
+| Field             | Type | Null | Key | Default | Extra |
++-------------------+------+------+-----+---------+-------+
+| idVenda           | int  | NO   | PRI | NULL    |       |
+| idBOLO            | int  | NO   | MUL | NULL    |       |
+| dataVenda         | date | NO   |     | NULL    |       |
+| quantidadeVendida | int  | NO   |     | NULL    |       |
++-------------------+------+------+-----+---------+-------+
+4 rows in set (0.003 sec)
+
+mysql> INSERT INTO Venda VALUES (1, 1, NOW(), 2);
+Query OK, 1 row affected, 1 warning (0.001 sec)
+
+mysql> DESC Venda;
++-------------------+------+------+-----+---------+-------+
+| Field             | Type | Null | Key | Default | Extra |
++-------------------+------+------+-----+---------+-------+
+| idVenda           | int  | NO   | PRI | NULL    |       |
+| idBOLO            | int  | NO   | MUL | NULL    |       |
+| dataVenda         | date | NO   |     | NULL    |       |
+| quantidadeVendida | int  | NO   |     | NULL    |       |
++-------------------+------+------+-----+---------+-------+
+4 rows in set (0.003 sec)
+
+mysql> SELECT * FROM Venda;
++---------+--------+------------+-------------------+
+| idVenda | idBOLO | dataVenda  | quantidadeVendida |
++---------+--------+------------+-------------------+
+|       1 |      1 | 2025-05-23 |                 2 |
++---------+--------+------------+-------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          6 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | classico  |
+|  5 | bolo de pote      |  8.75 |          6 | pote      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.007 sec)
+
+mysql> UPDATE Bolo SET quantidade = quantidade-3 WHERE id=5;
+Query OK, 1 row affected (0.009 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          6 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | classico  |
+|  5 | bolo de pote      |  8.75 |          3 | pote      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> UPDATE Bolo SET quantidade = quantidade+3 WHERE id=5;
+Query OK, 1 row affected (0.009 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          6 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | classico  |
+|  5 | bolo de pote      |  8.75 |          6 | pote      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Venda;
++---------+--------+------------+-------------------+
+| idVenda | idBOLO | dataVenda  | quantidadeVendida |
++---------+--------+------------+-------------------+
+|       1 |      1 | 2025-05-23 |                 2 |
++---------+--------+------------+-------------------+
+1 row in set (0.001 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> UPDATE Bolo SET quantidade = quantidade-3 WHERE id=5;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          6 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | classico  |
+|  5 | bolo de pote      |  8.75 |          3 | pote      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> INSERT INTO Venda VALUES (2, 5, NOW(), 3);
+Query OK, 1 row affected, 1 warning (0.001 sec)
+
+mysql> SELECT * FROM Venda;
++---------+--------+------------+-------------------+
+| idVenda | idBOLO | dataVenda  | quantidadeVendida |
++---------+--------+------------+-------------------+
+|       1 |      1 | 2025-05-23 |                 2 |
+|       2 |      5 | 2025-05-23 |                 3 |
++---------+--------+------------+-------------------+
+2 rows in set (0.001 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.002 sec)
+
+mysql> SELECT * FROM Venda;
++---------+--------+------------+-------------------+
+| idVenda | idBOLO | dataVenda  | quantidadeVendida |
++---------+--------+------------+-------------------+
+|       1 |      1 | 2025-05-23 |                 2 |
++---------+--------+------------+-------------------+
+1 row in set (0.001 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          6 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          5 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | classico  |
+|  5 | bolo de pote      |  8.75 |          6 | pote      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> UPDATE TABLE Bolo SET quantidade = quantidade-1 WHERE id=3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE Bolo SET quantidade = quantidade-1 WHERE id=3' at line 1
+mysql> UPDATE Bolo SET quantidade = quantidade-1 WHERE id=3;
+Query OK, 1 row affected (0.007 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Bolo;
++----+-------------------+-------+------------+-----------+
+| id | nome              | preco | quantidade | categoria |
++----+-------------------+-------+------------+-----------+
+|  1 | bolo de chocolate | 12.50 |          6 | classico  |
+|  2 | bolo de morango   | 16.48 |          3 | fruta     |
+|  3 | bolo de banana    | 15.21 |          4 | fruta     |
+|  4 | bolo formigueiro  | 14.65 |         11 | classico  |
+|  5 | bolo de pote      |  8.75 |          6 | pote      |
++----+-------------------+-------+------------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT nome, quandidadeVenda FROM Bolo JOIN ON Bolo.id = Venda.idBolo;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ON Bolo.id = Venda.idBolo' at line 1
+mysql> SELECT nome, quandidadeVenda FROM Bolo JOIN Venda ON Bolo.id = Venda.idBolo;
+ERROR 1054 (42S22): Unknown column 'quandidadeVenda' in 'field list'
+mysql> SELECT nome, quandidadeVendida FROM Bolo JOIN Venda ON Bolo.id = Venda.idBolo;
+ERROR 1054 (42S22): Unknown column 'quandidadeVendida' in 'field list'
+mysql> SELECT nome, quantidadeVendida FROM Bolo JOIN Venda ON Bolo.id = Venda.idBolo;
++-------------------+-------------------+
+| nome              | quantidadeVendida |
++-------------------+-------------------+
+| bolo de chocolate |                 2 |
++-------------------+-------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT nome, categoria, quantidade FROM Bolo;
++-------------------+-----------+------------+
+| nome              | categoria | quantidade |
++-------------------+-----------+------------+
+| bolo de chocolate | classico  |          6 |
+| bolo de morango   | fruta     |          3 |
+| bolo de banana    | fruta     |          4 |
+| bolo formigueiro  | classico  |         11 |
+| bolo de pote      | pote      |          6 |
++-------------------+-----------+------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Bolo WHERE id NOT IN (SELECT idBOLO FROM Venda);
++----+------------------+-------+------------+-----------+
+| id | nome             | preco | quantidade | categoria |
++----+------------------+-------+------------+-----------+
+|  2 | bolo de morango  | 16.48 |          3 | fruta     |
+|  3 | bolo de banana   | 15.21 |          4 | fruta     |
+|  4 | bolo formigueiro | 14.65 |         11 | classico  |
+|  5 | bolo de pote     |  8.75 |          6 | pote      |
++----+------------------+-------+------------+-----------+
+4 rows in set (0.001 sec)
+
+mysql> notee
