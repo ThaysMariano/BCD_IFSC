@@ -36,6 +36,7 @@ CREATE TABLE `Aluno` (
 
 LOCK TABLES `Aluno` WRITE;
 /*!40000 ALTER TABLE `Aluno` DISABLE KEYS */;
+INSERT INTO `Aluno` VALUES ('Thays Mariano','thays.sm@aluno.ifsc.edu.br',123456789);
 /*!40000 ALTER TABLE `Aluno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +66,7 @@ CREATE TABLE `Disciplina` (
 
 LOCK TABLES `Disciplina` WRITE;
 /*!40000 ALTER TABLE `Disciplina` DISABLE KEYS */;
-INSERT INTO `Disciplina` VALUES (101,60,'Matematica I',1,1001),(102,80,'Introducao a Programacao',1,1002);
+INSERT INTO `Disciplina` VALUES (101,60,'Matematica I',1,1001),(102,80,'Introducao a Programacao',1,1002),(103,60,'Fisica I',1,1003),(201,80,'Algoritmos',2,1002),(202,80,'Estrutura de Dados',2,1004),(203,60,'Matematica II',2,1001),(301,80,'Banco de Dados',3,1005),(302,60,'Redes de Computadores',3,1003),(303,80,'Sistemas Operacionais',3,1004),(401,80,'Programacao Orientada a Objt',4,1002),(402,60,'Engenharia de Software',4,1005),(403,60,'Segurana da Informacao',4,1003),(501,60,'Inteligencia Artificial',5,1001),(502,80,'Computacao em Nuvem',5,1005),(503,80,'Projetos e Sistemas',5,1004);
 /*!40000 ALTER TABLE `Disciplina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,6 +95,7 @@ CREATE TABLE `Faz` (
 
 LOCK TABLES `Faz` WRITE;
 /*!40000 ALTER TABLE `Faz` DISABLE KEYS */;
+INSERT INTO `Faz` VALUES ('Concluido',123456789,101),('Concluido',123456789,102),('Concluido',123456789,103),('Concluido',123456789,201),('Concluido',123456789,202),('Concluido',123456789,203),('Cursando',123456789,301),('Cursando',123456789,302);
 /*!40000 ALTER TABLE `Faz` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,6 +123,7 @@ CREATE TABLE `PreRequisito` (
 
 LOCK TABLES `PreRequisito` WRITE;
 /*!40000 ALTER TABLE `PreRequisito` DISABLE KEYS */;
+INSERT INTO `PreRequisito` VALUES (203,101),(201,102),(302,103),(401,201),(301,202),(303,202),(401,203),(501,203),(502,302),(403,303),(503,303),(501,402),(503,402);
 /*!40000 ALTER TABLE `PreRequisito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-23  1:05:33
+-- Dump completed on 2025-06-04  1:20:57

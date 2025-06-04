@@ -177,3 +177,2075 @@ Query OK, 2 rows affected (0.013 sec)
 Records: 2  Duplicates: 0  Warnings: 0
 
 mysql> notee
+
+mysql> INSERT INTO Disciplina (103, 'Fisica I', 1, 60, 1003);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '103, 'Fisica I', 1, 60, 1003)' at line 1
+mysql> INSERT INTO Disciplina VALUES (103, 'Fisica I', 1, 60, 1003);
+ERROR 1366 (HY000): Incorrect integer value: 'Fisica I' for column 'CargaHoraria' at row 1
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (103, 'Fisica I', 1, 60, 1003);
+Query OK, 1 row affected (0.005 sec)
+
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (201, 'Algoritmos', 2, 80, 1002), (202, 'Estrutura de Dados', 2, 80, 1004), (203, 'Matematica II', 60, 1001 ), (301, 'Banco de Dados', 3, 80, 1005), (302, 'Redes de Computadores', 3, 60, 1003);
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (201, 'Algoritmos', 2, 80, 1002), (202, 'Estrutura de Dados', 2, 80, 1004), (203, 'Matematica II', 60, 1001 ), (301, 'Banco de Dados', 3, 80, 1005);
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (201, 'Algoritmos', 2, 80, 1002), (202, 'Estrutura de Dados', 2, 80, 1004), (203, 'Matematica II', 60, 1001 );
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (201, 'Algoritmos', 2, 80, 1002), (202, 'Estrutura de Dados', 2, 80, 1004), (203, 'Matematica II', 60, 1001 );
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (201, 'Algoritmos', 2, 80, 1002), (202, 'Estrutura de Dados', 2, 80, 1004);
+Query OK, 2 rows affected (0.006 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Disciplina;
++-----+--------------+--------------------------+----------+-------+
+| Cod | CargaHoraria | Nome                     | Semestre | SIAPE |
++-----+--------------+--------------------------+----------+-------+
+| 101 |           60 | Matematica I             |        1 |  1001 |
+| 102 |           80 | Introducao a Programacao |        1 |  1002 |
+| 103 |           60 | Fisica I                 |        1 |  1003 |
+| 201 |           80 | Algoritmos               |        2 |  1002 |
+| 202 |           80 | Estrutura de Dados       |        2 |  1004 |
++-----+--------------+--------------------------+----------+-------+
+5 rows in set (0.001 sec)
+
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (203, 'Matematica II', 60, 1001 ), (301, 'Banco de Dados', 3, 80, 1005), (302, 'Redes de Computadores', 3, 60, 1003);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (203, 'Matematica II', 2, 60, 1001 ), (301, 'Banco de Dados', 3, 80, 1005), (302, 'Redes de Computadores', 3, 60, 1003);
+Query OK, 3 rows affected (0.006 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Disciplina;
++-----+--------------+--------------------------+----------+-------+
+| Cod | CargaHoraria | Nome                     | Semestre | SIAPE |
++-----+--------------+--------------------------+----------+-------+
+| 101 |           60 | Matematica I             |        1 |  1001 |
+| 102 |           80 | Introducao a Programacao |        1 |  1002 |
+| 103 |           60 | Fisica I                 |        1 |  1003 |
+| 201 |           80 | Algoritmos               |        2 |  1002 |
+| 202 |           80 | Estrutura de Dados       |        2 |  1004 |
+| 203 |           60 | Matematica II            |        2 |  1001 |
+| 301 |           80 | Banco de Dados           |        3 |  1005 |
+| 302 |           60 | Redes de Computadores    |        3 |  1003 |
++-----+--------------+--------------------------+----------+-------+
+8 rows in set (0.001 sec)
+
+mysql> n
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'n' at line 1
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (303, 'Sistemas Operacionais', 3, 80, 1004), (401, 'Programacao Orientada a Objetos', 4, 80, 1002),(402, 'Engenharia de Software', 4, 60, 1005), (403, 'Segurana da Informacao', 4, 60, 1003), (501, 'Inteligencia Artificial', 5, 60, 1001), (502, 'Computacao em Nuvem', 5, 80, 1005), (503, 'Projetos e Sistemas', 5, 80, 1004);
+ERROR 1406 (22001): Data too long for column 'Nome' at row 2
+mysql> INSERT INTO Disciplina (Cod, Nome, Semestre, CargaHoraria, SIAPE) VALUES (303, 'Sistemas Operacionais', 3, 80, 1004), (401, 'Programacao Orientada a Objt', 4, 80, 1002),(402, 'Engenharia de Software', 4, 60, 1005), (403, 'Segurana da Informacao', 4, 60, 1003), (501, 'Inteligencia Artificial', 5, 60, 1001), (502, 'Computacao em Nuvem', 5, 80, 1005), (503, 'Projetos e Sistemas', 5, 80, 1004);
+Query OK, 7 rows affected (0.006 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Disciplina;
++-----+--------------+------------------------------+----------+-------+
+| Cod | CargaHoraria | Nome                         | Semestre | SIAPE |
++-----+--------------+------------------------------+----------+-------+
+| 101 |           60 | Matematica I                 |        1 |  1001 |
+| 102 |           80 | Introducao a Programacao     |        1 |  1002 |
+| 103 |           60 | Fisica I                     |        1 |  1003 |
+| 201 |           80 | Algoritmos                   |        2 |  1002 |
+| 202 |           80 | Estrutura de Dados           |        2 |  1004 |
+| 203 |           60 | Matematica II                |        2 |  1001 |
+| 301 |           80 | Banco de Dados               |        3 |  1005 |
+| 302 |           60 | Redes de Computadores        |        3 |  1003 |
+| 303 |           80 | Sistemas Operacionais        |        3 |  1004 |
+| 401 |           80 | Programacao Orientada a Objt |        4 |  1002 |
+| 402 |           60 | Engenharia de Software       |        4 |  1005 |
+| 403 |           60 | Segurana da Informacao       |        4 |  1003 |
+| 501 |           60 | Inteligencia Artificial      |        5 |  1001 |
+| 502 |           80 | Computacao em Nuvem          |        5 |  1005 |
+| 503 |           80 | Projetos e Sistemas          |        5 |  1004 |
++-----+--------------+------------------------------+----------+-------+
+15 rows in set (0.001 sec)
+
+mysql> DESC Modelagem;
+ERROR 1146 (42S02): Table 'Modelagem.Modelagem' doesn't exist
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| Modelagem          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.001 sec)
+
+mysql> DESC PreRequisitos;
+ERROR 1146 (42S02): Table 'Modelagem.PreRequisitos' doesn't exist
+mysql> DESC PreRequisito;
++-------------------+------+------+-----+---------+-------+
+| Field             | Type | Null | Key | Default | Extra |
++-------------------+------+------+-----+---------+-------+
+| Cod_1             | int  | NO   | PRI | NULL    |       |
+| PreRequisitoCod_2 | int  | NO   | PRI | NULL    |       |
++-------------------+------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+mysql> INSET INTO PreRequisito (Cod_1, PreRequisitoCod_2) VALUES (201, 102);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSET INTO PreRequisito (Cod_1, PreRequisitoCod_2) VALUES (201, 102)' at line 1
+mysql> INSERT INTO PreRequisito (Cod_1, PreRequisitoCod_2) VALUES (201, 102);
+Query OK, 1 row affected (0.004 sec)
+
+mysql> SELECT * FROM PreRequisito;
++-------+-------------------+
+| Cod_1 | PreRequisitoCod_2 |
++-------+-------------------+
+|   201 |               102 |
++-------+-------------------+
+1 row in set (0.001 sec)
+
+mysql> INSERT INTO PreRequisito (Cod_1, PreRequisitoCod_2) VALUES (203, 101), (301, 202), (302, 103), (303, 202), (401, 201), (401, 203), (403, 303), (501, 203), (501, 402),(502, 302), (503, 402), (503, 303);
+Query OK, 12 rows affected (0.005 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM PreRequisito;
++-------+-------------------+
+| Cod_1 | PreRequisitoCod_2 |
++-------+-------------------+
+|   203 |               101 |
+|   201 |               102 |
+|   302 |               103 |
+|   401 |               201 |
+|   301 |               202 |
+|   303 |               202 |
+|   401 |               203 |
+|   501 |               203 |
+|   502 |               302 |
+|   403 |               303 |
+|   503 |               303 |
+|   501 |               402 |
+|   503 |               402 |
++-------+-------------------+
+13 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Aluno;
+Empty set (0.001 sec)
+
+mysql> DESC Aluno;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nome      | varchar(50) | NO   |     | NULL    |       |
+| Email     | varchar(80) | YES  |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> DESC Faz;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Estado    | varchar(20) | NO   |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
+| Cod       | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> INSERT INTO Aluno (Nome, Email, Matricula) VALUES ('Thays Mariano', 'thays.sm@aluno.ifsc.edu.br', 123456789);
+Query OK, 1 row affected (0.005 sec)
+
+mysql> DESC Aluno;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nome      | varchar(50) | NO   |     | NULL    |       |
+| Email     | varchar(80) | YES  |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Aluno;
++---------------+----------------------------+-----------+
+| Nome          | Email                      | Matricula |
++---------------+----------------------------+-----------+
+| Thays Mariano | thays.sm@aluno.ifsc.edu.br | 123456789 |
++---------------+----------------------------+-----------+
+1 row in set (0.001 sec)
+
+mysql> DESC Faz;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Estado    | varchar(20) | NO   |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
+| Cod       | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> INSERT INTO Faz (Estado, Matricula, Cod) VALUES ('Concluido', 123456789, 101);
+Query OK, 1 row affected (0.004 sec)
+
+mysql> INSERT INTO Faz (Estado, Matricula, Cod) VALUES ('Concluido', 123456789, 102), ('Concluido', 123456789, 103), ('Concluido', 123456789, 201), ('Cursando', 123456789, 202), ('Cursando', 123456789, 203), ('Trancado', 123456789, 301), ('Cursando', 123456789, 302);
+Query OK, 7 rows affected (0.005 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Cursando  | 123456789 | 202 |
+| Cursando  | 123456789 | 203 |
+| Trancado  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Professor;
++----------------------+-------+-------------+
+| Nome                 | SIAPE | TempoDeCasa |
++----------------------+-------+-------------+
+| Maria Luz            |  1001 | 2015-03-10  |
+| Carlos Eduardo Silva |  1002 | 2012-07-01  |
+| Fernanda Costa       |  1003 | 2018-11-23  |
+| Jao Pedro Almeida    |  1004 | 2014-05-15  |
+| Mariana Goncalves    |  1005 | 2016-09-30  |
++----------------------+-------+-------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Disciplina;
++-----+--------------+------------------------------+----------+-------+
+| Cod | CargaHoraria | Nome                         | Semestre | SIAPE |
++-----+--------------+------------------------------+----------+-------+
+| 101 |           60 | Matematica I                 |        1 |  1001 |
+| 102 |           80 | Introducao a Programacao     |        1 |  1002 |
+| 103 |           60 | Fisica I                     |        1 |  1003 |
+| 201 |           80 | Algoritmos                   |        2 |  1002 |
+| 202 |           80 | Estrutura de Dados           |        2 |  1004 |
+| 203 |           60 | Matematica II                |        2 |  1001 |
+| 301 |           80 | Banco de Dados               |        3 |  1005 |
+| 302 |           60 | Redes de Computadores        |        3 |  1003 |
+| 303 |           80 | Sistemas Operacionais        |        3 |  1004 |
+| 401 |           80 | Programacao Orientada a Objt |        4 |  1002 |
+| 402 |           60 | Engenharia de Software       |        4 |  1005 |
+| 403 |           60 | Segurana da Informacao       |        4 |  1003 |
+| 501 |           60 | Inteligencia Artificial      |        5 |  1001 |
+| 502 |           80 | Computacao em Nuvem          |        5 |  1005 |
+| 503 |           80 | Projetos e Sistemas          |        5 |  1004 |
++-----+--------------+------------------------------+----------+-------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT Nome FROM Disciplina NATURAL JOIN Professor ON SIAPE = SIAPE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ON SIAPE = SIAPE' at line 1
+mysql> SELECT Nome FROM Disciplina NATURAL JOIN Professor;
+Empty set (0.001 sec)
+
+mysql> SELECT Nome FROM Disciplina NATURAL JOIN Professor WHERE SIAPE = SIAPE;
+Empty set (0.001 sec)
+
+mysql> SELECT Nome FROM Disciplina NATURAL JOIN Professor WHERE SIAPE;
+Empty set (0.000 sec)
+
+mysql> SELECT P.Nome D.Nome FROM Disciplina D NATURAL JOIN Professor P;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Nome FROM Disciplina D NATURAL JOIN Professor P' at line 1
+mysql> SELECT P.Nome, D.Nome FROM Disciplina D NATURALJOIN Professor P;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NATURALJOIN Professor P' at line 1
+mysql> SELECT P.Nome, D.Nome FROM Disciplina D NATURAL JOIN Professor P;
+Empty set (0.001 sec)
+
+mysql> SELECT P.Nome, D.Nome FROM Disciplina D NATURAL JOIN Professor P WHERE P.SIAPE = D.SIAPE;
+Empty set (0.001 sec)
+
+mysql> SELECT P.Nome, D.Nome FROM Disciplina D JOIN Professor P WHERE P.SIAPE = D.SIAPE;
++----------------------+------------------------------+
+| Nome                 | Nome                         |
++----------------------+------------------------------+
+| Maria Luz            | Matematica I                 |
+| Maria Luz            | Matematica II                |
+| Maria Luz            | Inteligencia Artificial      |
+| Carlos Eduardo Silva | Introducao a Programacao     |
+| Carlos Eduardo Silva | Algoritmos                   |
+| Carlos Eduardo Silva | Programacao Orientada a Objt |
+| Fernanda Costa       | Fisica I                     |
+| Fernanda Costa       | Redes de Computadores        |
+| Fernanda Costa       | Segurana da Informacao       |
+| Jao Pedro Almeida    | Estrutura de Dados           |
+| Jao Pedro Almeida    | Sistemas Operacionais        |
+| Jao Pedro Almeida    | Projetos e Sistemas          |
+| Mariana Goncalves    | Banco de Dados               |
+| Mariana Goncalves    | Engenharia de Software       |
+| Mariana Goncalves    | Computacao em Nuvem          |
++----------------------+------------------------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, P.Nome FROM Disciplina D JOIN Professor P WHERE P.SIAPE = D.SIAPE;
++------------------------------+----------------------+
+| Nome                         | Nome                 |
++------------------------------+----------------------+
+| Matematica I                 | Maria Luz            |
+| Matematica II                | Maria Luz            |
+| Inteligencia Artificial      | Maria Luz            |
+| Introducao a Programacao     | Carlos Eduardo Silva |
+| Algoritmos                   | Carlos Eduardo Silva |
+| Programacao Orientada a Objt | Carlos Eduardo Silva |
+| Fisica I                     | Fernanda Costa       |
+| Redes de Computadores        | Fernanda Costa       |
+| Segurana da Informacao       | Fernanda Costa       |
+| Estrutura de Dados           | Jao Pedro Almeida    |
+| Sistemas Operacionais        | Jao Pedro Almeida    |
+| Projetos e Sistemas          | Jao Pedro Almeida    |
+| Banco de Dados               | Mariana Goncalves    |
+| Engenharia de Software       | Mariana Goncalves    |
+| Computacao em Nuvem          | Mariana Goncalves    |
++------------------------------+----------------------+
+15 rows in set (0.001 sec)
+
+mysql> DESC Aluno;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nome      | varchar(50) | NO   |     | NULL    |       |
+| Email     | varchar(80) | YES  |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> DESC Faz;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Estado    | varchar(20) | NO   |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
+| Cod       | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> SELECT F.Nome FROM Faz F JOIN Aluno A WHERE A.Matricula = F.Matricula;
+ERROR 1054 (42S22): Unknown column 'F.Nome' in 'field list'
+mysql> SELECT D.Nome FROM Disciplina D JOIN Aluno A AND Faz F WHERE A.Matricula = F.Matricula AND F.Cod = D.Cod;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND Faz F WHERE A.Matricula = F.Matricula AND F.Cod = D.Cod' at line 1
+mysql> DESC Disciplina;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Cod          | int         | NO   | PRI | NULL    |       |
+| CargaHoraria | int         | NO   |     | NULL    |       |
+| Nome         | varchar(30) | NO   |     | NULL    |       |
+| Semestre     | int         | NO   |     | NULL    |       |
+| SIAPE        | int         | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.003 sec)
+
+mysql> SELECT D.Nome, P.Nome FROM Disciplina D NATURAL JOIN Professor;
+ERROR 1054 (42S22): Unknown column 'P.Nome' in 'field list'
+mysql> SELECT D.Nome, P.Nome FROM Disciplina D NATURAL JOIN Professor P;
+Empty set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D INNER JOIN Faz F WHERE F.Cod = D.Cod;
++--------------------------+
+| Nome                     |
++--------------------------+
+| Matematica I             |
+| Introducao a Programacao |
+| Fisica I                 |
+| Algoritmos               |
+| Estrutura de Dados       |
+| Matematica II            |
+| Banco de Dados           |
+| Redes de Computadores    |
++--------------------------+
+8 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN Faz F WHERE F.Cod = D.Cod AND Estado='Cursando';
++-----------------------+
+| Nome                  |
++-----------------------+
+| Estrutura de Dados    |
+| Matematica II         |
+| Redes de Computadores |
++-----------------------+
+3 rows in set (0.001 sec)
+
+mysql> SELECT * FROM ALUNO;
+ERROR 1146 (42S02): Table 'Modelagem.ALUNO' doesn't exist
+mysql> SELECT * FROM Aluno;
++---------------+----------------------------+-----------+
+| Nome          | Email                      | Matricula |
++---------------+----------------------------+-----------+
+| Thays Mariano | thays.sm@aluno.ifsc.edu.br | 123456789 |
++---------------+----------------------------+-----------+
+1 row in set (0.001 sec)
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Cursando  | 123456789 | 202 |
+| Cursando  | 123456789 | 203 |
+| Trancado  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> DESC Aluno;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nome      | varchar(50) | NO   |     | NULL    |       |
+| Email     | varchar(80) | YES  |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> DESC Faz;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Estado    | varchar(20) | NO   |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
+| Cod       | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> DESC Disciplina;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Cod          | int         | NO   | PRI | NULL    |       |
+| CargaHoraria | int         | NO   |     | NULL    |       |
+| Nome         | varchar(30) | NO   |     | NULL    |       |
+| Semestre     | int         | NO   |     | NULL    |       |
+| SIAPE        | int         | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.003 sec)
+
+mysql> Select D.Nome,
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> Select Nome, Semestre, F.Estado From Disciplina D JOIN Faz F;
++------------------------------+----------+-----------+
+| Nome                         | Semestre | Estado    |
++------------------------------+----------+-----------+
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Trancado  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Trancado  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Trancado  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Trancado  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Trancado  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Trancado  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Trancado  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Trancado  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Trancado  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Trancado  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Trancado  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Trancado  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Trancado  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Trancado  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Trancado  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
++------------------------------+----------+-----------+
+120 rows in set (0.001 sec)
+
+mysql> Select Nome, Semestre, F.Estado From Disciplina D JOIN Faz F AND Aluno A WHERE F.Matricula = A.matricula;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND Aluno A WHERE F.Matricula = A.matricula' at line 1
+mysql> Select Nome, Semestre, F.Estado From Disciplina D JOIN Faz F, ALuno A WHERE F.Matricula = A.Matricula ;
+ERROR 1146 (42S02): Table 'Modelagem.ALuno' doesn't exist
+mysql> Select Nome, Semestre, F.Estado From Disciplina D JOIN Faz F, Aluno A WHERE F.Matricula = A.Matricula ;
+ERROR 1052 (23000): Column 'Nome' in field list is ambiguous
+mysql> Select D.Nome, Semestre, F.Estado From Disciplina D JOIN Faz F, Aluno A WHERE F.Matricula = A.Matricula ;
++------------------------------+----------+-----------+
+| Nome                         | Semestre | Estado    |
++------------------------------+----------+-----------+
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Trancado  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Trancado  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Trancado  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Trancado  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Trancado  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Trancado  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Trancado  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Trancado  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Trancado  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Trancado  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Trancado  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Trancado  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Trancado  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Trancado  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Trancado  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
++------------------------------+----------+-----------+
+120 rows in set (0.001 sec)
+
+mysql> Select D.Nome, Semestre, F.Estado From Disciplina D JOIN Faz F, Aluno A WHERE F.Matricula = 123456789 ;
++------------------------------+----------+-----------+
+| Nome                         | Semestre | Estado    |
++------------------------------+----------+-----------+
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Trancado  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Trancado  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Trancado  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Trancado  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Trancado  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Trancado  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Trancado  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Trancado  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Trancado  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Trancado  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Trancado  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Trancado  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Trancado  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Trancado  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Trancado  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
++------------------------------+----------+-----------+
+120 rows in set (0.001 sec)
+
+mysql> Select D.Nome, Semestre, F.Estado From Disciplina D JOIN Faz F, Aluno A WHERE F.Matricula = 123456789 ;
++------------------------------+----------+-----------+
+| Nome                         | Semestre | Estado    |
++------------------------------+----------+-----------+
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Trancado  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Trancado  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Trancado  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Trancado  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Trancado  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Trancado  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Trancado  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Trancado  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Trancado  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Trancado  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Trancado  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Trancado  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Trancado  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Trancado  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Trancado  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
++------------------------------+----------+-----------+
+120 rows in set (0.001 sec)
+
+mysql> DESC Faz;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Estado    | varchar(20) | NO   |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
+| Cod       | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Cursando  | 123456789 | 202 |
+| Cursando  | 123456789 | 203 |
+| Trancado  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, Semestre F.Estado A.Nome FROM Disciplina D JOIN Faz F JOIN Aluno A;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Estado A.Nome FROM Disciplina D JOIN Faz F JOIN Aluno A' at line 1
+mysql> SELECT D.Nome, Semestre F.Estado FROM Disciplina D JOIN Faz F;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Estado FROM Disciplina D JOIN Faz F' at line 1
+mysql> SELECT D.Nome, Semestre, F.Estado FROM Disciplina D JOIN Faz F;
++------------------------------+----------+-----------+
+| Nome                         | Semestre | Estado    |
++------------------------------+----------+-----------+
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Trancado  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Trancado  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Trancado  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Trancado  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Trancado  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Trancado  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Trancado  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Trancado  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Trancado  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Trancado  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Trancado  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Trancado  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Trancado  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Trancado  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Trancado  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
++------------------------------+----------+-----------+
+120 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, Semestre, F.Estado FROM Disciplina D JOIN Faz F WHERE F.Matricula IS NOT NULL;
++------------------------------+----------+-----------+
+| Nome                         | Semestre | Estado    |
++------------------------------+----------+-----------+
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Trancado  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Trancado  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Trancado  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Trancado  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Trancado  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Trancado  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Trancado  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Trancado  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Trancado  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Trancado  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Trancado  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Trancado  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Trancado  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Trancado  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Trancado  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
++------------------------------+----------+-----------+
+120 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, Semestre, F.Estado FROM Disciplina D JOIN Faz F WHERE F.Matricula IS NOT NULL;
++------------------------------+----------+-----------+
+| Nome                         | Semestre | Estado    |
++------------------------------+----------+-----------+
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Trancado  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Cursando  |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Matematica I                 |        1 | Concluido |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Trancado  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Cursando  |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Introducao a Programacao     |        1 | Concluido |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Trancado  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Cursando  |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Fisica I                     |        1 | Concluido |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Trancado  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Cursando  |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Algoritmos                   |        2 | Concluido |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Trancado  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Cursando  |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Estrutura de Dados           |        2 | Concluido |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Trancado  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Cursando  |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Matematica II                |        2 | Concluido |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Trancado  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Cursando  |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Banco de Dados               |        3 | Concluido |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Trancado  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Cursando  |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Redes de Computadores        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Trancado  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Cursando  |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Sistemas Operacionais        |        3 | Concluido |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Trancado  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Cursando  |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Programacao Orientada a Objt |        4 | Concluido |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Trancado  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Cursando  |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Engenharia de Software       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Trancado  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Cursando  |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Segurana da Informacao       |        4 | Concluido |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Trancado  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Cursando  |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Inteligencia Artificial      |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Trancado  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Cursando  |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Computacao em Nuvem          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Trancado  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Cursando  |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
+| Projetos e Sistemas          |        5 | Concluido |
++------------------------------+----------+-----------+
+120 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, Semestre, F.Estado FROM Disciplina D INNER JOIN Faz F ON D.Cod = F.Cod INNER JOIN Aluno A ON A.Matricula = F.Matricula;
++--------------------------+----------+-----------+
+| Nome                     | Semestre | Estado    |
++--------------------------+----------+-----------+
+| Matematica I             |        1 | Concluido |
+| Introducao a Programacao |        1 | Concluido |
+| Fisica I                 |        1 | Concluido |
+| Algoritmos               |        2 | Concluido |
+| Estrutura de Dados       |        2 | Cursando  |
+| Matematica II            |        2 | Cursando  |
+| Banco de Dados           |        3 | Trancado  |
+| Redes de Computadores    |        3 | Cursando  |
++--------------------------+----------+-----------+
+8 rows in set (0.001 sec)
+
+mysql> SELECT Nome, CargaHoraria FROM Disciplina WHERE CargaHoraria > 70;
++------------------------------+--------------+
+| Nome                         | CargaHoraria |
++------------------------------+--------------+
+| Introducao a Programacao     |           80 |
+| Algoritmos                   |           80 |
+| Estrutura de Dados           |           80 |
+| Banco de Dados               |           80 |
+| Sistemas Operacionais        |           80 |
+| Programacao Orientada a Objt |           80 |
+| Computacao em Nuvem          |           80 |
+| Projetos e Sistemas          |           80 |
++------------------------------+--------------+
+8 rows in set (0.000 sec)
+
+mysql> SELECT Nome FROM Disciplina WHERE Cod NOT IN (SELECT Cod_1 FROM PreRequisito);
++--------------------------+
+| Nome                     |
++--------------------------+
+| Matematica I             |
+| Introducao a Programacao |
+| Fisica I                 |
+| Estrutura de Dados       |
+| Engenharia de Software   |
++--------------------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT Nome CASE CargaHoraria WHEN >70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Disciplina;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CASE CargaHoraria WHEN >70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM D' at line 1
+mysql> SELECT Nome CASE WHEN CargaHoraria>70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Disciplina;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CASE WHEN CargaHoraria>70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Di' at line 1
+mysql> SELECT Nome CASE WHEN CargaHoraria>70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Disciplina;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CASE WHEN CargaHoraria>70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Di' at line 1
+mysql> SELECT Nome, CASE WHEN CargaHoraria>70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Disciplina;
++------------------------------+-------------------+
+| Nome                         | NivelCargaHoraria |
++------------------------------+-------------------+
+| Matematica I                 | teste             |
+| Introducao a Programacao     | Alta              |
+| Fisica I                     | teste             |
+| Algoritmos                   | Alta              |
+| Estrutura de Dados           | Alta              |
+| Matematica II                | teste             |
+| Banco de Dados               | Alta              |
+| Redes de Computadores        | teste             |
+| Sistemas Operacionais        | Alta              |
+| Programacao Orientada a Objt | Alta              |
+| Engenharia de Software       | teste             |
+| Segurana da Informacao       | teste             |
+| Inteligencia Artificial      | teste             |
+| Computacao em Nuvem          | Alta              |
+| Projetos e Sistemas          | Alta              |
++------------------------------+-------------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT Nome, CASE CargaHoraria WHEN >70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Disciplina;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>70 THEN 'Alta' ELSE 'teste' END NivelCargaHoraria FROM Disciplina' at line 1
+mysql> SELECT Nome, CASE WHEN CargaHoraria>70 THEN 'Alta' WHEN CargaHoraria=60 THEN 'Media' ELSE 'Baixa' END NivelCargaHoraria FROM Disciplina;
++------------------------------+-------------------+
+| Nome                         | NivelCargaHoraria |
++------------------------------+-------------------+
+| Matematica I                 | Media             |
+| Introducao a Programacao     | Alta              |
+| Fisica I                     | Media             |
+| Algoritmos                   | Alta              |
+| Estrutura de Dados           | Alta              |
+| Matematica II                | Media             |
+| Banco de Dados               | Alta              |
+| Redes de Computadores        | Media             |
+| Sistemas Operacionais        | Alta              |
+| Programacao Orientada a Objt | Alta              |
+| Engenharia de Software       | Media             |
+| Segurana da Informacao       | Media             |
+| Inteligencia Artificial      | Media             |
+| Computacao em Nuvem          | Alta              |
+| Projetos e Sistemas          | Alta              |
++------------------------------+-------------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Cursando  | 123456789 | 202 |
+| Cursando  | 123456789 | 203 |
+| Trancado  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> SELECT Nome, CASE WHEN Estado='Concluido' THEN 'ok' ELSE 'Teste' END Situacao FROM Disciplina JOIN Faz 
+    -> ;
++------------------------------+----------+
+| Nome                         | Situacao |
++------------------------------+----------+
+| Matematica I                 | Teste    |
+| Matematica I                 | Teste    |
+| Matematica I                 | Teste    |
+| Matematica I                 | Teste    |
+| Matematica I                 | ok       |
+| Matematica I                 | ok       |
+| Matematica I                 | ok       |
+| Matematica I                 | ok       |
+| Introducao a Programacao     | Teste    |
+| Introducao a Programacao     | Teste    |
+| Introducao a Programacao     | Teste    |
+| Introducao a Programacao     | Teste    |
+| Introducao a Programacao     | ok       |
+| Introducao a Programacao     | ok       |
+| Introducao a Programacao     | ok       |
+| Introducao a Programacao     | ok       |
+| Fisica I                     | Teste    |
+| Fisica I                     | Teste    |
+| Fisica I                     | Teste    |
+| Fisica I                     | Teste    |
+| Fisica I                     | ok       |
+| Fisica I                     | ok       |
+| Fisica I                     | ok       |
+| Fisica I                     | ok       |
+| Algoritmos                   | Teste    |
+| Algoritmos                   | Teste    |
+| Algoritmos                   | Teste    |
+| Algoritmos                   | Teste    |
+| Algoritmos                   | ok       |
+| Algoritmos                   | ok       |
+| Algoritmos                   | ok       |
+| Algoritmos                   | ok       |
+| Estrutura de Dados           | Teste    |
+| Estrutura de Dados           | Teste    |
+| Estrutura de Dados           | Teste    |
+| Estrutura de Dados           | Teste    |
+| Estrutura de Dados           | ok       |
+| Estrutura de Dados           | ok       |
+| Estrutura de Dados           | ok       |
+| Estrutura de Dados           | ok       |
+| Matematica II                | Teste    |
+| Matematica II                | Teste    |
+| Matematica II                | Teste    |
+| Matematica II                | Teste    |
+| Matematica II                | ok       |
+| Matematica II                | ok       |
+| Matematica II                | ok       |
+| Matematica II                | ok       |
+| Banco de Dados               | Teste    |
+| Banco de Dados               | Teste    |
+| Banco de Dados               | Teste    |
+| Banco de Dados               | Teste    |
+| Banco de Dados               | ok       |
+| Banco de Dados               | ok       |
+| Banco de Dados               | ok       |
+| Banco de Dados               | ok       |
+| Redes de Computadores        | Teste    |
+| Redes de Computadores        | Teste    |
+| Redes de Computadores        | Teste    |
+| Redes de Computadores        | Teste    |
+| Redes de Computadores        | ok       |
+| Redes de Computadores        | ok       |
+| Redes de Computadores        | ok       |
+| Redes de Computadores        | ok       |
+| Sistemas Operacionais        | Teste    |
+| Sistemas Operacionais        | Teste    |
+| Sistemas Operacionais        | Teste    |
+| Sistemas Operacionais        | Teste    |
+| Sistemas Operacionais        | ok       |
+| Sistemas Operacionais        | ok       |
+| Sistemas Operacionais        | ok       |
+| Sistemas Operacionais        | ok       |
+| Programacao Orientada a Objt | Teste    |
+| Programacao Orientada a Objt | Teste    |
+| Programacao Orientada a Objt | Teste    |
+| Programacao Orientada a Objt | Teste    |
+| Programacao Orientada a Objt | ok       |
+| Programacao Orientada a Objt | ok       |
+| Programacao Orientada a Objt | ok       |
+| Programacao Orientada a Objt | ok       |
+| Engenharia de Software       | Teste    |
+| Engenharia de Software       | Teste    |
+| Engenharia de Software       | Teste    |
+| Engenharia de Software       | Teste    |
+| Engenharia de Software       | ok       |
+| Engenharia de Software       | ok       |
+| Engenharia de Software       | ok       |
+| Engenharia de Software       | ok       |
+| Segurana da Informacao       | Teste    |
+| Segurana da Informacao       | Teste    |
+| Segurana da Informacao       | Teste    |
+| Segurana da Informacao       | Teste    |
+| Segurana da Informacao       | ok       |
+| Segurana da Informacao       | ok       |
+| Segurana da Informacao       | ok       |
+| Segurana da Informacao       | ok       |
+| Inteligencia Artificial      | Teste    |
+| Inteligencia Artificial      | Teste    |
+| Inteligencia Artificial      | Teste    |
+| Inteligencia Artificial      | Teste    |
+| Inteligencia Artificial      | ok       |
+| Inteligencia Artificial      | ok       |
+| Inteligencia Artificial      | ok       |
+| Inteligencia Artificial      | ok       |
+| Computacao em Nuvem          | Teste    |
+| Computacao em Nuvem          | Teste    |
+| Computacao em Nuvem          | Teste    |
+| Computacao em Nuvem          | Teste    |
+| Computacao em Nuvem          | ok       |
+| Computacao em Nuvem          | ok       |
+| Computacao em Nuvem          | ok       |
+| Computacao em Nuvem          | ok       |
+| Projetos e Sistemas          | Teste    |
+| Projetos e Sistemas          | Teste    |
+| Projetos e Sistemas          | Teste    |
+| Projetos e Sistemas          | Teste    |
+| Projetos e Sistemas          | ok       |
+| Projetos e Sistemas          | ok       |
+| Projetos e Sistemas          | ok       |
+| Projetos e Sistemas          | ok       |
++------------------------------+----------+
+120 rows in set (0.001 sec)
+
+mysql> SELECT Nome, CASE WHEN Estado='Concluido' THEN 'ok' ELSE 'Teste' END Situacao FROM Disciplina D JOIN Faz F ON F.Cod = D.Cod; 
++--------------------------+----------+
+| Nome                     | Situacao |
++--------------------------+----------+
+| Matematica I             | ok       |
+| Introducao a Programacao | ok       |
+| Fisica I                 | ok       |
+| Algoritmos               | ok       |
+| Estrutura de Dados       | Teste    |
+| Matematica II            | Teste    |
+| Banco de Dados           | Teste    |
+| Redes de Computadores    | Teste    |
++--------------------------+----------+
+8 rows in set (0.001 sec)
+
+mysql> SELECT Nome, CASE WHEN Estado='Concluido' THEN 'ok' WHEN Estado='Cursadno' THEN 'Em Andamento' ELSE 'Trancado' END Situacao FROM Disciplina D JOIN Faz F ON F.Cod = D.Cod;
++--------------------------+----------+
+| Nome                     | Situacao |
++--------------------------+----------+
+| Matematica I             | ok       |
+| Introducao a Programacao | ok       |
+| Fisica I                 | ok       |
+| Algoritmos               | ok       |
+| Estrutura de Dados       | Trancado |
+| Matematica II            | Trancado |
+| Banco de Dados           | Trancado |
+| Redes de Computadores    | Trancado |
++--------------------------+----------+
+8 rows in set (0.001 sec)
+
+mysql> SELECT Nome, CASE WHEN Estado='Concluido' THEN 'ok' WHEN Estado='Cursando' THEN 'Em Andamento' ELSE 'Trancado' END Situacao FROM Disciplina D JOIN Faz F ON F.Cod = D.Cod;
++--------------------------+--------------+
+| Nome                     | Situacao     |
++--------------------------+--------------+
+| Matematica I             | ok           |
+| Introducao a Programacao | ok           |
+| Fisica I                 | ok           |
+| Algoritmos               | ok           |
+| Estrutura de Dados       | Em Andamento |
+| Matematica II            | Em Andamento |
+| Banco de Dados           | Trancado     |
+| Redes de Computadores    | Em Andamento |
++--------------------------+--------------+
+8 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Cursando  | 123456789 | 202 |
+| Cursando  | 123456789 | 203 |
+| Trancado  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.001 sec)
+
+mysql> UPDATE Faz SET Estado='Cursando' WHERE Estado='Trancado';
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Cursando  | 123456789 | 202 |
+| Cursando  | 123456789 | 203 |
+| Cursando  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.004 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> UPDATE Faz SET Estado='Concluido' WHERE Cod LIKE '2%';
+Query OK, 2 rows affected (0.001 sec)
+Rows matched: 3  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Concluido | 123456789 | 202 |
+| Concluido | 123456789 | 203 |
+| Cursando  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> DESC Faz;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Estado    | varchar(20) | NO   |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
+| Cod       | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.001 sec)
+
+mysql> INSERT INTO Faz (Estado, Matricula, Cod) VALUES ("Cursando", 123456789, 501), ("Cursando, 123456789, 403);
+    "> ^C
+mysql> INSERT INTO Faz (Estado, Matricula, Cod) VALUES ("Cursando", 123456789, 501), ("Cursando", 123456789, 403);
+Query OK, 2 rows affected (0.001 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Faz (Estado, Matricula, Cod) VALUES ("Cursando", 123456789, 501), ("Em Andamento", 123456789, 403);
+ERROR 1062 (23000): Duplicate entry '123456789-501' for key 'Faz.PRIMARY'
+mysql> INSERT INTO Faz (Estado, Matricula, Cod) VALUES ("Cursando", 123456789, 501);
+ERROR 1062 (23000): Duplicate entry '123456789-501' for key 'Faz.PRIMARY'
+mysql> SELECT * FROM ALuno;
+ERROR 1146 (42S02): Table 'Modelagem.ALuno' doesn't exist
+mysql> SELECT * FROM Aluno;
++---------------+----------------------------+-----------+
+| Nome          | Email                      | Matricula |
++---------------+----------------------------+-----------+
+| Thays Mariano | thays.sm@aluno.ifsc.edu.br | 123456789 |
++---------------+----------------------------+-----------+
+1 row in set (0.001 sec)
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Concluido | 123456789 | 202 |
+| Concluido | 123456789 | 203 |
+| Cursando  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
+| Cursando  | 123456789 | 403 |
+| Cursando  | 123456789 | 501 |
++-----------+-----------+-----+
+10 rows in set (0.001 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.001 sec)
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Concluido | 123456789 | 202 |
+| Concluido | 123456789 | 203 |
+| Cursando  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> DESC Professor;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Nome        | varchar(50) | NO   |     | NULL    |       |
+| SIAPE       | int         | NO   | PRI | NULL    |       |
+| TempoDeCasa | date        | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> DESC DIsciplina;
+ERROR 1146 (42S02): Table 'Modelagem.DIsciplina' doesn't exist
+mysql> DESC Disciplina;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Cod          | int         | NO   | PRI | NULL    |       |
+| CargaHoraria | int         | NO   |     | NULL    |       |
+| Nome         | varchar(30) | NO   |     | NULL    |       |
+| Semestre     | int         | NO   |     | NULL    |       |
+| SIAPE        | int         | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.003 sec)
+
+mysql> SELECT D.Nome, COUNT(D.SIAPE) FROM Disciplna D JOIN Professor P;
+ERROR 1146 (42S02): Table 'Modelagem.Disciplna' doesn't exist
+mysql> SELECT D.Nome, COUNT(D.SIAPE) FROM Disciplina D JOIN Professor P;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Modelagem.D.Nome'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Nome, COUNT(SIAPE) FROM Disciplina JOIN Professor;
+ERROR 1052 (23000): Column 'Nome' in field list is ambiguous
+mysql> SELECT Nome, COUNT(SIAPE) FROM Disciplina JOIN Professor ON Disciplina.SIAPE = Professor.SIAPE;
+ERROR 1052 (23000): Column 'Nome' in field list is ambiguous
+mysql> SELECT D. Nome, COUNT(SIAPE) FROM Disciplina JOIN Professor ON Disciplina.SIAPE = Professor.SIAPE;
+ERROR 1054 (42S22): Unknown column 'D.Nome' in 'field list'
+mysql> SELECT D.Nome, COUNT(SIAPE) FROM Disciplina JOIN Professor ON Disciplina.SIAPE = Professor.SIAPE;
+ERROR 1054 (42S22): Unknown column 'D.Nome' in 'field list'
+mysql> SELECT COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina;
++-------------------------+
+| QuantidadeDeDisciplinas |
++-------------------------+
+|                      15 |
++-------------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Modelagem.Disciplina.Nome'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina, GROUP BY Nome;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY Nome' at line 1
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina, GROUP BY SIAPE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY SIAPE' at line 1
+mysql> SELECT COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina, GROUP BY SIAPE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY SIAPE' at line 1
+mysql> SELECT COUNT(*) AS QuantidadeDeDisciplinas FROM Disciplina, GROUP BY SIAPE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY SIAPE' at line 1
+mysql> SELECT COUNT(*) AS QuantidadeDeDisciplinas FROM Disciplina, GROUP BY (SIAPE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY (SIAPE)' at line 1
+mysql> SELECT COUNT(*) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE);
++-------------------------+
+| QuantidadeDeDisciplinas |
++-------------------------+
+|                       3 |
+|                       3 |
+|                       3 |
+|                       3 |
+|                       3 |
++-------------------------+
+5 rows in set (0.017 sec)
+
+mysql> SELECT Nome, COUNT(*) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE), (Nome);
++------------------------------+-------------------------+
+| Nome                         | QuantidadeDeDisciplinas |
++------------------------------+-------------------------+
+| Matematica I                 |                       1 |
+| Introducao a Programacao     |                       1 |
+| Fisica I                     |                       1 |
+| Algoritmos                   |                       1 |
+| Estrutura de Dados           |                       1 |
+| Matematica II                |                       1 |
+| Banco de Dados               |                       1 |
+| Redes de Computadores        |                       1 |
+| Sistemas Operacionais        |                       1 |
+| Programacao Orientada a Objt |                       1 |
+| Engenharia de Software       |                       1 |
+| Segurana da Informacao       |                       1 |
+| Inteligencia Artificial      |                       1 |
+| Computacao em Nuvem          |                       1 |
+| Projetos e Sistemas          |                       1 |
++------------------------------+-------------------------+
+15 rows in set (0.002 sec)
+
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE);
++-------------------------+
+| QuantidadeDeDisciplinas |
++-------------------------+
+|                       3 |
+|                       3 |
+|                       3 |
+|                       3 |
+|                       3 |
++-------------------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Professor GROUP BY (SIAPE);
++----------------------+-------------------------+
+| Nome                 | QuantidadeDeDisciplinas |
++----------------------+-------------------------+
+| Maria Luz            |                       1 |
+| Carlos Eduardo Silva |                       1 |
+| Fernanda Costa       |                       1 |
+| Jao Pedro Almeida    |                       1 |
+| Mariana Goncalves    |                       1 |
++----------------------+-------------------------+
+5 rows in set (0.000 sec)
+
+mysql> DESC Professor;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Nome        | varchar(50) | NO   |     | NULL    |       |
+| SIAPE       | int         | NO   | PRI | NULL    |       |
+| TempoDeCasa | date        | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Professor GROUP BY (SIAPE) NATURAL JOIN Disciplina;;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NATURAL JOIN Disciplina' at line 1
+ERROR: 
+No query specified
+
+mysql> SELECT Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Professor NATURAL JOIN Disciplina GROUP BY (SIAPE);
+Empty set (0.001 sec)
+
+mysql> SELECT P.Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Professor P NATURAL JOIN Disciplina D GROUP BY (SIAPE);
+Empty set (0.001 sec)
+
+mysql> SELECT P.Nome, COUNT(SIAPE) AS QuantidadeDeDisciplinas FROM Disciplina NATURAL JOIN Professor P GROUP BY (SIAPE);
+Empty set (0.001 sec)
+
+mysql> SELECT Nome, COUNT(Estado) FROM Aluno WHERE Estado='Concluido';
+ERROR 1054 (42S22): Unknown column 'Estado' in 'field list'
+mysql> SELECT Nome, COUNT(Estado) FROM Aluno JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Modelagem.Aluno.Nome'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNT(Estado) FROM Aluno JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++---------------+
+| COUNT(Estado) |
++---------------+
+|             6 |
++---------------+
+1 row in set (0.001 sec)
+
+mysql> DESC PreRequisito;
++-------------------+------+------+-----+---------+-------+
+| Field             | Type | Null | Key | Default | Extra |
++-------------------+------+------+-----+---------+-------+
+| Cod_1             | int  | NO   | PRI | NULL    |       |
+| PreRequisitoCod_2 | int  | NO   | PRI | NULL    |       |
++-------------------+------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+mysql> SELECT * FROM PreRequisito
+    -> ;
++-------+-------------------+
+| Cod_1 | PreRequisitoCod_2 |
++-------+-------------------+
+|   203 |               101 |
+|   201 |               102 |
+|   302 |               103 |
+|   401 |               201 |
+|   301 |               202 |
+|   303 |               202 |
+|   401 |               203 |
+|   501 |               203 |
+|   502 |               302 |
+|   403 |               303 |
+|   503 |               303 |
+|   501 |               402 |
+|   503 |               402 |
++-------+-------------------+
+13 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisitos PR ON D.Cod = PR.Cod;
+ERROR 1146 (42S02): Table 'Modelagem.PreRequisitos' doesn't exist
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.Cod;
+ERROR 1054 (42S22): Unknown column 'PR.Cod' in 'on clause'
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.Cod_1;
++------------------------------+
+| Nome                         |
++------------------------------+
+| Matematica II                |
+| Algoritmos                   |
+| Redes de Computadores        |
+| Programacao Orientada a Objt |
+| Banco de Dados               |
+| Sistemas Operacionais        |
+| Programacao Orientada a Objt |
+| Inteligencia Artificial      |
+| Computacao em Nuvem          |
+| Segurana da Informacao       |
+| Projetos e Sistemas          |
+| Inteligencia Artificial      |
+| Projetos e Sistemas          |
++------------------------------+
+13 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.Cod_1 WHERE Cod_1 = 301;
++----------------+
+| Nome           |
++----------------+
+| Banco de Dados |
++----------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.Cod_1 WHERE PreRequisitoCod_2 =301;
+Empty set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.Cod_1 WHERE PreRequisitoCod_2 = 301;
+Empty set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2;
++--------------------------+
+| Nome                     |
++--------------------------+
+| Matematica I             |
+| Introducao a Programacao |
+| Fisica I                 |
+| Algoritmos               |
+| Estrutura de Dados       |
+| Estrutura de Dados       |
+| Matematica II            |
+| Matematica II            |
+| Redes de Computadores    |
+| Sistemas Operacionais    |
+| Sistemas Operacionais    |
+| Engenharia de Software   |
+| Engenharia de Software   |
++--------------------------+
+13 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHERE Cod= 301;
+Empty set (0.001 sec)
+
+mysql> SELECT D.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHERE Cod_1= 301;
++--------------------+
+| Nome               |
++--------------------+
+| Estrutura de Dados |
++--------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT D.Nome P.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHERE Cod_1= 301 JOIN Professor P ON D.SIAPE = P.SIAPE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHE' at line 1
+mysql> SELECT D.Nome P.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHERE Cod_1= 301;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Nome FROM Disciplina D JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHE' at line 1
+mysql> SELECT D.Nome P.Nome FROM Disciplina D INNER JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHERE Cod_1= 301;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Nome FROM Disciplina D INNER JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod' at line 1
+mysql> SELECT D.Nome FROM Disciplina D INNER JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHERE Cod_1= 301;
++--------------------+
+| Nome               |
++--------------------+
+| Estrutura de Dados |
++--------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT D.Nome P.Professor FROM Disciplina D INNER JOIN PreRequisito PR ON D.Cod = PR.PreRequisitoCod_2 WHERE Cod_1= 301 INNER JOIN Professor P ON P.SIAPE = D.SIAPE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.Professor FROM Disciplina D INNER JOIN PreRequisito PR ON D.Cod = PR.PreRequisi' at line 1
+mysql> DESC DIsciplina;
+ERROR 1146 (42S02): Table 'Modelagem.DIsciplina' doesn't exist
+mysql> DESC Disciplina;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Cod          | int         | NO   | PRI | NULL    |       |
+| CargaHoraria | int         | NO   |     | NULL    |       |
+| Nome         | varchar(30) | NO   |     | NULL    |       |
+| Semestre     | int         | NO   |     | NULL    |       |
+| SIAPE        | int         | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.002 sec)
+
+mysql> INSERT INTO Disciplina (Cod, CargaHoraria, Nome, Semestre, SIAPE) VALUES (502, 60, 'Libras', 6, 1003);
+ERROR 3819 (HY000): Check constraint 'Disciplina_chk_1' is violated.
+mysql> notee

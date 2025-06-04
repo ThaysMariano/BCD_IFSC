@@ -1,0 +1,434 @@
+mysql> SELECT Nome, SIAPE FROM Disciplina GROUP BY SIAPE;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Nome, SIAPE FROM Disciplina GROUP BY (SIAPE);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT SIAPE FROM Disciplina GROUP BY (SIAPE);
++-------+
+| SIAPE |
++-------+
+|  1001 |
+|  1002 |
+|  1003 |
+|  1004 |
+|  1005 |
++-------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT Nome, SIAPE FROM Disciplina GROUP BY (Nome);
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.SIAPE' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Nome FROM Disciplina GROUP BY (Nome);
++------------------------------+
+| Nome                         |
++------------------------------+
+| Matematica I                 |
+| Introducao a Programacao     |
+| Fisica I                     |
+| Algoritmos                   |
+| Estrutura de Dados           |
+| Matematica II                |
+| Banco de Dados               |
+| Redes de Computadores        |
+| Sistemas Operacionais        |
+| Programacao Orientada a Objt |
+| Engenharia de Software       |
+| Segurana da Informacao       |
+| Inteligencia Artificial      |
+| Computacao em Nuvem          |
+| Projetos e Sistemas          |
++------------------------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT Nome, COUNT(SIAPE) FROM Disciplina GROUP BY (Nome);
++------------------------------+--------------+
+| Nome                         | COUNT(SIAPE) |
++------------------------------+--------------+
+| Matematica I                 |            1 |
+| Introducao a Programacao     |            1 |
+| Fisica I                     |            1 |
+| Algoritmos                   |            1 |
+| Estrutura de Dados           |            1 |
+| Matematica II                |            1 |
+| Banco de Dados               |            1 |
+| Redes de Computadores        |            1 |
+| Sistemas Operacionais        |            1 |
+| Programacao Orientada a Objt |            1 |
+| Engenharia de Software       |            1 |
+| Segurana da Informacao       |            1 |
+| Inteligencia Artificial      |            1 |
+| Computacao em Nuvem          |            1 |
+| Projetos e Sistemas          |            1 |
++------------------------------+--------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT SIAPE, COUNT(Nome) FROM Disciplina GROUP BY (Nome);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.SIAPE' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT SIAPE, COUNT(Nome) FROM Disciplina GROUP BY (SIAPE);
++-------+-------------+
+| SIAPE | COUNT(Nome) |
++-------+-------------+
+|  1001 |           3 |
+|  1002 |           3 |
+|  1003 |           3 |
+|  1004 |           3 |
+|  1005 |           3 |
++-------+-------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT SIAPE, COUNT(Nome) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE);
++-------+-------------------------+
+| SIAPE | QuantidadeDeDisciplinas |
++-------+-------------------------+
+|  1001 |                       3 |
+|  1002 |                       3 |
+|  1003 |                       3 |
+|  1004 |                       3 |
+|  1005 |                       3 |
++-------+-------------------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT SIAPE, COUNT(Nome) AS QuantidadeDeDisciplinas JOIN Professor ON Professor.SIAPE = Disiplina.SIAPE FROM Disciplina GROUP BY (SIAPE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'JOIN Professor ON Professor.SIAPE = Disiplina.SIAPE FROM Disciplina GROUP BY (SI' at line 1
+mysql> SELECT SIAPE, COUNT(Nome) AS QuantidadeDeDisciplinas JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE FROM Disciplina GROUP BY (SIAPE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE FROM Disciplina GROUP BY (S' at line 1
+mysql> SELECT SIAPE, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE FROM Disciplina GROUP BY (SIAPE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE FROM Disciplina GROUP BY (S' at line 1
+mysql> SELECT SIAPE, COUNT(Nome) AS QuantidadeDeDisciplinas INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE FROM Disciplina GROUP BY (SIAPE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE FROM Disciplina GROUP' at line 1
+mysql> SELECT SIAPE, COUNT(Nome) AS QuantidadeDeDisciplinas FROM Disciplina GROUP BY (SIAPE);
++-------+-------------------------+
+| SIAPE | QuantidadeDeDisciplinas |
++-------+-------------------------+
+|  1001 |                       3 |
+|  1002 |                       3 |
+|  1003 |                       3 |
+|  1004 |                       3 |
+|  1005 |                       3 |
++-------+-------------------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT SIAPE, COUNT(Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (SIAPE);
+ERROR 1052 (23000): Column 'SIAPE' in field list is ambiguous
+mysql> SELECT Disicplina.Nome, COUNT(Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (SIAPE);
+ERROR 1054 (42S22): Unknown column 'Disicplina.Nome' in 'field list'
+mysql> SELECT Disciplina.Nome, COUNT(Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (SIAPE);
+ERROR 1052 (23000): Column 'Nome' in field list is ambiguous
+mysql> SELECT Disciplina.Nome, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (SIAPE);
+ERROR 1052 (23000): Column 'SIAPE' in group statement is ambiguous
+mysql> SELECT Disciplina.Nome, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disiplina.SIAPE);
+ERROR 1054 (42S22): Unknown column 'Disiplina.SIAPE' in 'group statement'
+mysql> SELECT Disciplina.Nome, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disciplina.SIAPE);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disciplina.SIAPE);
++-------------------------+
+| QuantidadeDeDisciplinas |
++-------------------------+
+|                       3 |
+|                       3 |
+|                       3 |
+|                       3 |
+|                       3 |
++-------------------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT Disicplina.Nome COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disciplina.SIAPE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Prof' at line 1
+mysql> SELECT Disicplina.Nome, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disciplina.SIAPE);
+ERROR 1054 (42S22): Unknown column 'Disicplina.Nome' in 'field list'
+mysql> SELECT Disciplina.Nome, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disciplina.SIAPE);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Disciplina.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Professor.Nome, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina INNER JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disciplina.SIAPE);
++----------------------+-------------------------+
+| Nome                 | QuantidadeDeDisciplinas |
++----------------------+-------------------------+
+| Maria Luz            |                       3 |
+| Carlos Eduardo Silva |                       3 |
+| Fernanda Costa       |                       3 |
+| Jao Pedro Almeida    |                       3 |
+| Mariana Goncalves    |                       3 |
++----------------------+-------------------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT COUNT(Estado) FROM Aluno JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++---------------+
+| COUNT(Estado) |
++---------------+
+|             6 |
++---------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT COUNT(Estado) AS QuantidadeConcluidas FROM Aluno JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT Aluno.Nome, COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Modelagem.Aluno.Nome'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT Professor.Nome, COUNT(Professor.Nome) AS QuantidadeDeDisciplinas FROM Disciplina JOIN Professor ON Professor.SIAPE = Disciplina.SIAPE GROUP BY (Disciplina.SIAPE);
++----------------------+-------------------------+
+| Nome                 | QuantidadeDeDisciplinas |
++----------------------+-------------------------+
+| Maria Luz            |                       3 |
+| Carlos Eduardo Silva |                       3 |
+| Fernanda Costa       |                       3 |
+| Jao Pedro Almeida    |                       3 |
+| Mariana Goncalves    |                       3 |
++----------------------+-------------------------+
+5 rows in set (0.001 sec)
+
+mysql> SELECT COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT Nome, COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Modelagem.Aluno.Nome'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Faz.Matricula, COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Modelagem.Faz.Matricula'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT  COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.000 sec)
+
+mysql> SELECT  COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT N COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricu' at line 1
+mysql> SELECT N COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricu' at line 1
+mysql> SELECT  COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT  COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT Aluno.Nome, COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido' GROUP BY (Estado);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Aluno.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Aluno.Nome, COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido' GROUP BY (Estado);
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Modelagem.Aluno.Nome' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT  COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
++----------------------+
+| QuantidadeConcluidas |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT Aluno.Nome, COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido';
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Modelagem.Aluno.Nome'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT Aluno.Nome, COUNT(Estado) AS QuantidadeConcluidas FROM Aluno INNER JOIN Faz ON Aluno.Matricula = Faz.Matricula WHERE Estado='Concluido' GROUP BY (Aluno.Nome);
++---------------+----------------------+
+| Nome          | QuantidadeConcluidas |
++---------------+----------------------+
+| Thays Mariano |                    6 |
++---------------+----------------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT D.Nome, P.Nome, D.CargaHoraria FROM Disciplina D INNER JOIN Professor P ON P.SIAPE = D.SIAPE; 
++------------------------------+----------------------+--------------+
+| Nome                         | Nome                 | CargaHoraria |
++------------------------------+----------------------+--------------+
+| Matematica I                 | Maria Luz            |           60 |
+| Matematica II                | Maria Luz            |           60 |
+| Inteligencia Artificial      | Maria Luz            |           60 |
+| Introducao a Programacao     | Carlos Eduardo Silva |           80 |
+| Algoritmos                   | Carlos Eduardo Silva |           80 |
+| Programacao Orientada a Objt | Carlos Eduardo Silva |           80 |
+| Fisica I                     | Fernanda Costa       |           60 |
+| Redes de Computadores        | Fernanda Costa       |           60 |
+| Segurana da Informacao       | Fernanda Costa       |           60 |
+| Estrutura de Dados           | Jao Pedro Almeida    |           80 |
+| Sistemas Operacionais        | Jao Pedro Almeida    |           80 |
+| Projetos e Sistemas          | Jao Pedro Almeida    |           80 |
+| Banco de Dados               | Mariana Goncalves    |           80 |
+| Engenharia de Software       | Mariana Goncalves    |           60 |
+| Computacao em Nuvem          | Mariana Goncalves    |           80 |
++------------------------------+----------------------+--------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, P.Nome, D.CargaHoraria FROM Disciplina D INNER JOIN Professor P ON P.SIAPE = D.SIAPE WHERE D.Cod IN Aluno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Aluno' at line 1
+mysql> SELECT D.Nome, P.Nome, D.CargaHoraria FROM Disciplina D INNER JOIN Professor P ON P.SIAPE = D.SIAPE;
++------------------------------+----------------------+--------------+
+| Nome                         | Nome                 | CargaHoraria |
++------------------------------+----------------------+--------------+
+| Matematica I                 | Maria Luz            |           60 |
+| Matematica II                | Maria Luz            |           60 |
+| Inteligencia Artificial      | Maria Luz            |           60 |
+| Introducao a Programacao     | Carlos Eduardo Silva |           80 |
+| Algoritmos                   | Carlos Eduardo Silva |           80 |
+| Programacao Orientada a Objt | Carlos Eduardo Silva |           80 |
+| Fisica I                     | Fernanda Costa       |           60 |
+| Redes de Computadores        | Fernanda Costa       |           60 |
+| Segurana da Informacao       | Fernanda Costa       |           60 |
+| Estrutura de Dados           | Jao Pedro Almeida    |           80 |
+| Sistemas Operacionais        | Jao Pedro Almeida    |           80 |
+| Projetos e Sistemas          | Jao Pedro Almeida    |           80 |
+| Banco de Dados               | Mariana Goncalves    |           80 |
+| Engenharia de Software       | Mariana Goncalves    |           60 |
+| Computacao em Nuvem          | Mariana Goncalves    |           80 |
++------------------------------+----------------------+--------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, P.Nome, D.CargaHoraria FROM Disciplina D INNER JOIN Professor P ON P.SIAPE = D.SIAPE;
++------------------------------+----------------------+--------------+
+| Nome                         | Nome                 | CargaHoraria |
++------------------------------+----------------------+--------------+
+| Matematica I                 | Maria Luz            |           60 |
+| Matematica II                | Maria Luz            |           60 |
+| Inteligencia Artificial      | Maria Luz            |           60 |
+| Introducao a Programacao     | Carlos Eduardo Silva |           80 |
+| Algoritmos                   | Carlos Eduardo Silva |           80 |
+| Programacao Orientada a Objt | Carlos Eduardo Silva |           80 |
+| Fisica I                     | Fernanda Costa       |           60 |
+| Redes de Computadores        | Fernanda Costa       |           60 |
+| Segurana da Informacao       | Fernanda Costa       |           60 |
+| Estrutura de Dados           | Jao Pedro Almeida    |           80 |
+| Sistemas Operacionais        | Jao Pedro Almeida    |           80 |
+| Projetos e Sistemas          | Jao Pedro Almeida    |           80 |
+| Banco de Dados               | Mariana Goncalves    |           80 |
+| Engenharia de Software       | Mariana Goncalves    |           60 |
+| Computacao em Nuvem          | Mariana Goncalves    |           80 |
++------------------------------+----------------------+--------------+
+15 rows in set (0.001 sec)
+
+mysql> DESC Aluno;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Nome      | varchar(50) | NO   |     | NULL    |       |
+| Email     | varchar(80) | YES  |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> DESC Faz;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Estado    | varchar(20) | NO   |     | NULL    |       |
+| Matricula | int         | NO   | PRI | NULL    |       |
+| Cod       | int         | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+mysql> DESC Disciplina;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Cod          | int         | NO   | PRI | NULL    |       |
+| CargaHoraria | int         | NO   |     | NULL    |       |
+| Nome         | varchar(30) | NO   |     | NULL    |       |
+| Semestre     | int         | NO   |     | NULL    |       |
+| SIAPE        | int         | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.003 sec)
+
+mysql> SELECT D.Nome, P.Nome, D.CargaHoraria FROM Disciplina D INNER JOIN Professor P ON P.SIAPE = D.SIAPE;
++------------------------------+----------------------+--------------+
+| Nome                         | Nome                 | CargaHoraria |
++------------------------------+----------------------+--------------+
+| Matematica I                 | Maria Luz            |           60 |
+| Matematica II                | Maria Luz            |           60 |
+| Inteligencia Artificial      | Maria Luz            |           60 |
+| Introducao a Programacao     | Carlos Eduardo Silva |           80 |
+| Algoritmos                   | Carlos Eduardo Silva |           80 |
+| Programacao Orientada a Objt | Carlos Eduardo Silva |           80 |
+| Fisica I                     | Fernanda Costa       |           60 |
+| Redes de Computadores        | Fernanda Costa       |           60 |
+| Segurana da Informacao       | Fernanda Costa       |           60 |
+| Estrutura de Dados           | Jao Pedro Almeida    |           80 |
+| Sistemas Operacionais        | Jao Pedro Almeida    |           80 |
+| Projetos e Sistemas          | Jao Pedro Almeida    |           80 |
+| Banco de Dados               | Mariana Goncalves    |           80 |
+| Engenharia de Software       | Mariana Goncalves    |           60 |
+| Computacao em Nuvem          | Mariana Goncalves    |           80 |
++------------------------------+----------------------+--------------+
+15 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, P.Nome, D.CargaHoraria FROM Disciplina D INNER JOIN Professor P ON P.SIAPE = D.SIAPE INNER JOIN Faz F ON F.Cod = D.Cod;
++--------------------------+----------------------+--------------+
+| Nome                     | Nome                 | CargaHoraria |
++--------------------------+----------------------+--------------+
+| Matematica I             | Maria Luz            |           60 |
+| Matematica II            | Maria Luz            |           60 |
+| Introducao a Programacao | Carlos Eduardo Silva |           80 |
+| Algoritmos               | Carlos Eduardo Silva |           80 |
+| Fisica I                 | Fernanda Costa       |           60 |
+| Redes de Computadores    | Fernanda Costa       |           60 |
+| Estrutura de Dados       | Jao Pedro Almeida    |           80 |
+| Banco de Dados           | Mariana Goncalves    |           80 |
++--------------------------+----------------------+--------------+
+8 rows in set (0.001 sec)
+
+mysql> SELECT * FROM Faz;
++-----------+-----------+-----+
+| Estado    | Matricula | Cod |
++-----------+-----------+-----+
+| Concluido | 123456789 | 101 |
+| Concluido | 123456789 | 102 |
+| Concluido | 123456789 | 103 |
+| Concluido | 123456789 | 201 |
+| Concluido | 123456789 | 202 |
+| Concluido | 123456789 | 203 |
+| Cursando  | 123456789 | 301 |
+| Cursando  | 123456789 | 302 |
++-----------+-----------+-----+
+8 rows in set (0.001 sec)
+
+mysql> SELECT D.Nome, P.Nome, D.CargaHoraria FROM Disciplina D INNER JOIN Professor P ON P.SIAPE = D.SIAPE INNER JOIN Faz F ON F.Cod = D.Cod WHERE F.Estado='Concluido';
++--------------------------+----------------------+--------------+
+| Nome                     | Nome                 | CargaHoraria |
++--------------------------+----------------------+--------------+
+| Matematica I             | Maria Luz            |           60 |
+| Introducao a Programacao | Carlos Eduardo Silva |           80 |
+| Fisica I                 | Fernanda Costa       |           60 |
+| Algoritmos               | Carlos Eduardo Silva |           80 |
+| Estrutura de Dados       | Jao Pedro Almeida    |           80 |
+| Matematica II            | Maria Luz            |           60 |
++--------------------------+----------------------+--------------+
+6 rows in set (0.001 sec)
+
+mysql> tee
+Currently logging to file 'modelagem3'
+mysql> exit
