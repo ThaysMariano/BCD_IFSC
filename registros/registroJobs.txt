@@ -1,0 +1,42 @@
+SHOW DATABASES;
+USE Job;
+
+SELECT * FROM employee;
+SELECT * FROM course;
+SELECT * FROM empcourse;
+
+SELECT forenames, surname, DAY(dob) FROM employee WHERE MONTH(dob)=03;
+
+SELECT * FROM jobhistory;
+SELECT * FROM department;
+
+SELECT forenames FROM employee E JOIN jobhistory JH ON E.empno=JH.empno
+ WHERE YEAR(startdate)=1980 AND position='Accountant';
+ 
+ SELECT E.empno, forenames FROM employee E JOIN jobhistory JH ON E.empno=JH.empno 
+ WHERE enddate IS NULL;
+ 
+ SELECT forenames, position FROM employee E JOIN jobhistory JH ON 
+ E.empno=JH.empno WHERE enddate IS NULL;
+ 
+ SELECT sum(JH.salary) AS TotalFolha FROM department NATURAL JOIN employee 
+ NATURAL JOIN jobhistory JH WHERE JH.enddate IS NULL;
+ 
+ SELECT * FROM department;
+ 
+ SELECT empno, forenames, surname FROM employee E NATURAL JOIN empcourse EC WHERE E.empno NOT IN (SELECT empno FROM empcourse);
+ 
+ SELECT forenames FROM employee E NATURAL JOIN empcourse EC 
+ NATURAL JOIN course C WHERE YEAR(cdate)=1988;
+ 
+ SELECT dname, COUNT(E.depno) FROM department D NATURAL JOIN employee E GROUP BY (dname);
+ 
+ SELECT cname, COUNT(dname) AS Total FROM department D NATURAL JOIN employee E NATURAL JOIN empcourse EC NATURAL JOIN course GROUP BY(cname);
+ 
+ SELECT depno, MAX(Salary) FROM department NATURAL JOIN employee NATURAL JOIN jobhistory GROUP BY (depno);
+ CREATE VIEW testee AS SELECT depno, MAX(Salary) AS maxSalario FROM department NATURAL JOIN employee NATURAL JOIN jobhistory GROUP BY (depno);
+ 
+ SELECT MIN(maxSalario) AS MenorMaiorSalario FROM testee;
+ 
+ 
+ 
