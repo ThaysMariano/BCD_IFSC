@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   db:
     image: mysql:latest
@@ -6,15 +5,17 @@ services:
     environment:
       - MYSQL_DATABASE=bcd
       - MYSQL_ROOT_PASSWORD=senhaRoot
-      - MYSQL_ROOT_HOST='%'
+      - MYSQL_ROOT_HOST=%
       - MYSQL_USER=aluno
       - MYSQL_PASSWORD=senhaAluno
     volumes:
-      # Dados ficam no host e nao dentro do container
+      # Dados ficam no host e não dentro do container
       - ./mysql-data:/var/lib/mysql
-      # Todos arquivos *.sql armazenados em scritps-para-iniciar-o-banco serao executados (em ordem alfabetica) na primeira vez que o container for iniciado
+      # Todos os arquivos *.sql armazenados em scripts-para-iniciar-o-banco
+      # serão executados (em ordem alfabética) na primeira vez que o container for iniciado
       - ./scritps-para-iniciar-o-banco:/docker-entrypoint-initdb.d
     cap_add:
       - SYS_NICE
     ports:
       - 3306:3306
+
