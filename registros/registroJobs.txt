@@ -143,6 +143,21 @@ FROM Empregado E JOIN Dependente D ON E.id = D.empregado_id
 JOIN Empresa EM ON E.empresa_id = EM.id JOIN Grupo G ON EM.grupo_id = G.id
 GROUP BY G.nome, EM.nome, E.nome;
 
+----------------------------
+
+SHOW DATABASES;
+USE JOBS;
+
+SELECT * FROM empcourse;
+
+SELECT E.empno, E.forenames, E.surname FROM employee E 
+WHERE NOT EXISTS (SELECT 1 FROM empcourse EC WHERE EC.empno = E.empno);
+
+SELECT C.cname, D.dname, COUNT(*) AS Total FROM empcourse EC NATURAL 
+JOIN employee E NATURAL JOIN department D NATURAL JOIN course C GROUP BY D.dname, C.cname;
+
+DELETE FROM employee WHERE depno = (SELECT depno FROM department WHERE dname = "engineering");
+
 
 
  
