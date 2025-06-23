@@ -38,5 +38,111 @@ SELECT forenames FROM employee E JOIN jobhistory JH ON E.empno=JH.empno
  
  SELECT MIN(maxSalario) AS MenorMaiorSalario FROM testee;
  
+ -------------------------------------------------------------------------
  
+ SHOW DATABASES;
+USE Jobs;
+
+SELECT * FROM employee;
+
+SELECT forenames FROM employee;
+
+SELECT E.empno, E.forenames, E.surname FROM employee E NATURAL JOIN empcourse EC WHERE EC.courseno IS NULL; 
+
+UPDATE employee SET depno = (SELECT depno FROM department WHERE dname = "engineering")
+WHERE depno = (SELECT depno FROM department WHERE dname = "accounts");
+
+DELETE FROM employee WHERE depno = (SELECT depno FROM department WHERE dname = "accounts");
+
+
+
+
+
+CREATE TABLE Campus (id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(80) UNIQUE);
+
+CREATE TABLE Departamento ( id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(80) UNIQUE, 
+campus_id INT, FOREIGN KEY (campus_id) REFERENCES Campus(id));
+
+CREATE TABLE Curso ( id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(80) UNIQUE, 
+departamento_id INT, FOREIGN KEY (departamento_id) REFERENCES Departamento(id));
+
+CREATE TABLE Aluno (id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(80), curso_id INT, 
+FOREIGN KEY (curso_id) REFERENCES Curso(id)); 
+
+
+INSERT INTO Campus (nome) VALUES ('São José'), ('Florianópolis'), ('Lages');
+SELECT * FROM Curso;
+
+INSERT INTO Departamento (nome, campus_id) VALUES  ('Telecomunicações', 1), ('Refrigeração', 1),
+('Engenharia', 2), ('Computação', 3);
+
+INSERT INTO Curso (nome, departamento_id) VALUES ('Engenharia de Telecomunicações', 1), 
+('Análise e Desenvolvimento de Sistemas', 1), ('Engenharia Elétrica', 3), ('Ciências da Computação', 4);
+
+INSERT INTO Aluno (nome, curso_id) VALUES ('Mariana Da Silva', 1), ('Joao Marcos', 1), 
+('Beatriz Souza', 1), ('Felipe Fagundes', 1), ('Fabiana Martins', 1);
+
+INSERT INTO Aluno (nome, curso_id) VALUES ('Maria Clara', 2), 
+('Felipe Antonio', 2), ('Amanda Medeiros', 2), ('Pedro Manuel', 2);
+
+INSERT INTO Aluno (nome, curso_id) VALUES ('Kauan Freitas', 3), ('Isabella Correa', 3),
+ ('Thays Mariano', 4);
+ 
+ 
+CREATE TABLE Grupo (id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(100) UNIQUE);
+ 
+CREATE TABLE Empresa (id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(100) UNIQUE, grupo_id INT,
+FOREIGN KEY (grupo_id) REFERENCES Grupo(id));
+
+CREATE TABLE Empregado (id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(100), empresa_id INT,
+FOREIGN KEY (empresa_id) REFERENCES Empresa(id));
+ 
+ CREATE TABLE Dependente (id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(100), empregado_id INT,
+FOREIGN KEY (empregado_id) REFERENCES Empregado(id));
+
+
+INSERT INTO Grupo (nome) VALUES ('ABC'), ('DEF'), ('GHI');
+
+INSERT INTO Empresa (nome, grupo_id) VALUES ('O baratao', 1), ('A moda', 1),
+('Popular', 2), ('Exclusiva', 3);
+
+INSERT INTO Empregado (nome, empresa_id) VALUES ('Marcos Vieira', 1), ('Jonas Ataide', 1),
+('Julia Mendes', 2), ('Sofia Medeiros', 3), ('Ana Clara', 4);
+
+SELECT * FROM Empregado;
+
+INSERT INTO Dependente (nome, empregado_id) VALUES ('Dependente 1', 1), ('Dependente 2', 1), 
+('Dependente 3', 1), ('Dependente 4', 1), ('Dependente 5', 1), ('Dependente 6', 3), ('Dependente 7', 3), 
+('Dependente 8', 3), ('Dependente 9', 3), ('Dependente 10', 4), ('Dependente 11', 4), ('Dependente 12', 5);
+
+
+SELECT C.nome, CS.nome FROM Curso C JOIN Departamento D on C.departamento_id = D.id 
+JOIN Campus CS ON D.campus_id = CS.id;
+
+SELECT * FROM Curso;
+
+SELECT A.nome FROM Aluno A JOIN Curso C ON A.curso_id = C.id 
+JOIN Departamento D ON D.id= C.departamento_id JOIN Campus CA ON D.campus_id = CA.id 
+WHERE CA.nome = 'São José';
+
+
+SELECT CA.nome, D.nome, C.nome, COUNT(A.id) AS TotalAlunos FROM Aluno A
+JOIN Curso C ON A.curso_id = C.id JOIN Departamento D ON C.departamento_id = D.id
+JOIN Campus CA ON D.campus_id = CA.id GROUP BY CA.nome, D.nome, C.nome;
+
+SELECT G.nome, E.nome FROM Empregado E 
+JOIN Empresa EM ON E.empresa_id = EM.id 
+JOIN Grupo G ON G.id = EM.grupo_id;
+
+SELECT D.nome FROM Dependente D JOIN Empregado E ON D.empregado_id = E.id
+JOIN Empresa EM ON E.empresa_id = EM.id JOIN Grupo G ON EM.grupo_id = G.id
+WHERE G.nome = "ABC";
+
+SELECT G.nome, EM.nome, E.nome, COUNT(D.id) AS TotalDeDependentes
+FROM Empregado E JOIN Dependente D ON E.id = D.empregado_id
+JOIN Empresa EM ON E.empresa_id = EM.id JOIN Grupo G ON EM.grupo_id = G.id
+GROUP BY G.nome, EM.nome, E.nome;
+
+
+
  
